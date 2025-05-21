@@ -1,4 +1,4 @@
-name: Simple Todo Workflows
+name: Static Code Analysis
 on: [push]
 jobs:
   lint-python-code:
