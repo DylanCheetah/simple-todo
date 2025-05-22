@@ -14,4 +14,4 @@ class TodoListSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ["url", "id", "todo_list", "name", "due_date"]
+        fields = ["url", "id", "todo_list", "name", "due_date", "completed"]

@@ -16,6 +16,7 @@ class Task(models.Model):
     todo_list = models.ForeignKey(TodoList, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     due_date = models.DateField(auto_now=True)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} ({self.todo_list})"

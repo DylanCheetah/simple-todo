@@ -18,7 +18,7 @@ class TodoListSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ["url", "id", "todo_list", "name", "due_date"]
+        fields = ["url", "id", "todo_list", "name", "due_date", "completed"]
 ```
 
 Each serializer has metadata that associates it with a data model and a list of fields which it will serialize/deserialize. Notice that we omit the `owner` field for the todo list serializer. We will set that field later via a viewset.
