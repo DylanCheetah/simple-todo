@@ -17,7 +17,7 @@ class TodoListViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return TodoList.objects.filter(owner=self.request.user)
+        return TodoList.objects.filter(owner=self.request.user).order_by("name")
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -31,9 +31,9 @@ class TaskViewSet(ModelViewSet):
         todo_list = self.request.query_params.get("todo_list")
 
         if todo_list is not None:
-            return Task.objects.filter(todo_list__owner=self.request.user, todo_list=todo_list)
+            return Task.objects.filter(todo_list__owner=self.request.user, todo_list=todo_list).order_by("name")
         
-        return Task.objects.filter(todo_list__owner=self.request.user)
+        return Task.objects.filter(todo_list__owner=self.request.user).order_by("name")
 ```
 
 Each viewset is associated with a serializer class. They also have a list of permission classes which determine who can access the viewset. The `get_queryset` method returns the model instances which should be accessible via the viewset. The `perform_create` method of the todo list viewset sets the `owner` field to the current user.
