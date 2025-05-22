@@ -1,7 +1,6 @@
 # Lesson 01: Prerequisites
 
-In this tutorial series, we will learn full-stack web development by creating a simple todo list web app.
-Before we begin, follow the project setup instructions for your OS.
+In this tutorial series, we will learn full-stack web development by creating a simple todo list web app. Before we begin, follow the project setup instructions for your OS.
 
 ## Windows
 01. download Node.js from [https://nodejs.org/](https://nodejs.org/)
