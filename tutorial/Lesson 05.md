@@ -7,6 +7,12 @@ from django.db import models
 from django.utils import timezone
 
 
+# Utility Functions
+# =================
+def today():
+    return timezone.now().date()
+
+
 # Data Models
 # ===========
 class TodoList(models.Model):
@@ -20,7 +26,7 @@ class TodoList(models.Model):
 class Task(models.Model):
     todo_list = models.ForeignKey(TodoList, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
-    due_date = models.DateField(default=timezone.now)
+    due_date = models.DateField(default=today)
     completed = models.BooleanField(default=False)
 
     def __str__(self):
