@@ -49,4 +49,3 @@ Since we designed our APIs to only be accessible to authenticated users, you wil
 
 Each API supprts all CRUD operations:
 ![image](https://github.com/user-attachments/assets/d95de390-0ed8-4325-b7f5-efb405d4d213)
-![image](https://github.com/user-attachments/assets/6f710195-84c9-4a57-be84-6fce1e351fc5)
