@@ -1,4 +1,4 @@
-# Lesson 3: Setup Django REST Framework
+# Lesson 03: Setup Django REST Framework
 
 We will be using Django REST Framework to help implement the REST API for our todo list app. To use it, we will need to install and configure it. First, modify your `requirements.txt` file like this:
 ```txt
