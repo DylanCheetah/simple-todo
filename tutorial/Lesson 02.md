@@ -1,4 +1,4 @@
-# Lesson 02 - Creating a Django Project
+# Lesson 02: Creating a Django Project
 
 For our todo list application we will be using Django to implement the backend. First we need to install
 Django. To keep track of the packages we are using, we will list them in `requirements.txt`. Then we will
