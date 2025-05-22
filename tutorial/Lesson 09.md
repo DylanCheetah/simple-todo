@@ -37,3 +37,15 @@ python manage.py test
 ```
 
 If everything is working, all unit tests should pass. If there are any bugs, then one or more unit tests should fail. It is also possible for unit tests to fail if the tests themselves have bugs.
+
+At this point, you should be able to test the REST API manually as well by executing `python manage.py runserver` and visiting [http://localhost:8000/api/v1/](http://localhost:8000/api/v1/) in a web browser. The homepage of the REST API will list the available APIs:
+TODO
+
+If you click one of the API links you should see the page for that particular API:
+TODO
+
+Since we designed our APIs to only be accessible to authenticated users, you will need to use the login link in the upper right corner to log in. Afterwards, you will be able to access the API:
+TODO
+
+Each API supprts all CRUD operations:
+TODO
