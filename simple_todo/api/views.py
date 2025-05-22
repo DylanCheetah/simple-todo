@@ -27,6 +27,6 @@ class TaskViewSet(ModelViewSet):
         todo_list = self.request.query_params.get("todo_list")
 
         if todo_list is not None:
-            return Task.objects.filter(owner=self.request.user, todo_list=todo_list)
+            return Task.objects.filter(todo_list__owner=self.request.user, todo_list=todo_list)
         
-        return Task.objects.filter(owner=self.request.user)
+        return Task.objects.filter(todo_list__owner=self.request.user)
