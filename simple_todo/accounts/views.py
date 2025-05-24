@@ -1,16 +1,16 @@
-from django.contrib.auth import login
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
-from .forms import RegistrationForm
+from .forms import LoginForm, RegistrationForm
 
 
 # Views
 # =====
 def register(request):
     # Redirect automatically if already logged in
-    if not isinstance(request.user, AnonymousUser):
+    if request.user.is_authenticated:
         url = request.GET.get("next", "/")
         return redirect(url)
 
