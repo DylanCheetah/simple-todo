@@ -101,7 +101,7 @@ from .forms import RegistrationForm
 # =====
 def register(request):
     # Redirect automatically if already logged in
-    if not isinstance(request.user, AnonymousUser):
+    if request.user.is_authenticated:
         url = request.GET.get("next", "/")
         return redirect(url)
 
