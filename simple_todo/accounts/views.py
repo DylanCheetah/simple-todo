@@ -56,3 +56,51 @@ def register(request):
             "form": form
         }
     )
+
+
+def login_view(request):
+    # Automatically redirect if the user is already logged in
+    if request.user.is_authenticated:
+        url = request.GET.get("next", "/")
+        return redirect(url)
+
+    # Create login form
+    form = LoginForm()
+
+    # Process submitted form data
+    if request.method == "POST":
+        # Validate form data
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            # Authenticate user
+            user = authenticate(
+                request,
+                username=form.cleaned_data["username"],
+                password=form.cleaned_data["password"]
+            )
+
+            if user is None:
+                # Redisplay form
+                return render(
+                    request,
+                    "accounts/login.html",
+                    {
+                        "err_msg": "The supplied credentials were invalid. Please try again.",
+                        "form": LoginForm()
+                    }
+                )
+            
+            # Log the user in and redirect
+            login(request, user)
+            url = request.GET.get("next", "/")
+            return redirect(url)
+
+    # Send login form
+    return render(
+        request,
+        "accounts/login.html",
+        {
+            "form": form
+        }
+    )
