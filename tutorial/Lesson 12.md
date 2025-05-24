@@ -24,4 +24,4 @@ urlpatterns = [
 ```
 
 Now if we execute `python manage.py runserver` and visit [http://localhost:8000/accounts/logout/](http://localhost:8000/accounts/logout/) we should be logged out and get redirected to the homepage:
-TODO
+![image](https://github.com/user-attachments/assets/02f299bd-b018-46ac-87e1-60affdf9954e)
