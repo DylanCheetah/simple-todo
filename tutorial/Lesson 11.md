@@ -101,10 +101,10 @@ urlpatterns = [
 ```
 
 Now you should be able to execute `python manage.py runserver` and visit [http://localhost:8000/accounts/login/](http://localhost:8000/accounts/login/) to view the login page. If you are already logged in, you will be redirected to the hompage. In that case, log out via the admin site first. You should see the following page:
-TODO
+![image](https://github.com/user-attachments/assets/0589f2c6-d55a-44a3-8966-385a65741e54)
 
 If you try to log in with invalid credentials, you should see this page:
-TODO
+![image](https://github.com/user-attachments/assets/d8038fb0-9f88-4f67-ac58-6e52e81c0e5a)
 
 And if you log in successfully, you should get redirected to the homepage:
-TODO
+![image](https://github.com/user-attachments/assets/fb2d3e19-ef83-4862-a78e-407cc5d3ae81)
