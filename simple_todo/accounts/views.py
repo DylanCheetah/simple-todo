@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
@@ -104,3 +104,9 @@ def login_view(request):
             "form": form
         }
     )
+
+
+def logout_view(request):
+    # Log out and redirect to the homepage
+    logout(request)
+    return redirect("/")
