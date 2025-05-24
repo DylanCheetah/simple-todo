@@ -175,10 +175,10 @@ urlpatterns = [
 ```
 
 Now you should be able to execute `python manage.py runserver` and visit [http://localhost:8000/accounts/register/](http://localhost:8000/accounts/register/) to view the account registration form. If you are already logged in, you will be automatically redirected to the homepage by default. Use the admin site to log out first if this happens. You should see a page like this:
-TODO
+![image](https://github.com/user-attachments/assets/3ee8931a-d519-4d16-ac8a-1c3171cd8911)
 
 If you attempt to register with an existing username, you will see this page:
-TODO
+![image](https://github.com/user-attachments/assets/ac4b240a-29ee-4d2c-b8fd-8b0ebc930f86)
 
 For now, visiting the homepage should yield an error page like this:
-TODO
+![image](https://github.com/user-attachments/assets/a6e9c0a0-3207-4553-8fdf-2bc5505b5734)
