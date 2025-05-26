@@ -29,4 +29,4 @@ jobs:
     - name: Run JSHint
       run: |
         cd simple-todo-frontend
-        npm lint
+        npm run lint
