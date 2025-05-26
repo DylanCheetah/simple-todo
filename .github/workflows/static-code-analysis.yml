@@ -17,3 +17,16 @@ jobs:
       run: |
         cd simple_todo
         flake8
+  lint-javascript-code:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Run JSHint
+      run: |
+        cd simple-todo-frontend
+        npm lint
