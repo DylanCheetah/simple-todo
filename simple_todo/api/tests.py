@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -67,11 +66,13 @@ class TodoListTests(APITestCase):
 
         # Delete todo list via REST API
         self.client.force_login(users[0])
-        response = self.client.delete(f"/api/v1/todo-lists/{todo_lists[0].id}/")
+        response = self.client.delete(
+            f"/api/v1/todo-lists/{todo_lists[0].id}/")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         # Try to delete other user's todo list
-        response = self.client.delete(f"/api/v1/todo-lists/{todo_lists[2].id}/")
+        response = self.client.delete(
+            f"/api/v1/todo-lists/{todo_lists[2].id}/")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
@@ -100,10 +101,11 @@ class TaskTests(APITestCase):
         response = self.client.get("/api/v1/tasks/")
         self.assertEqual(len(response.json()["results"]), 3)
 
-        response = self.client.get(f"/api/v1/tasks/?todo_list={todo_lists[1].id}")
+        response = self.client.get(
+            f"/api/v1/tasks/?todo_list={todo_lists[1].id}")
         self.assertEqual(len(response.json()["results"]), 1)
 
-        response = self.client.get(f"/api/v1/tasks/1/")
+        response = self.client.get("/api/v1/tasks/1/")
         self.assertEqual(response.json()["name"], "wash the dishes")
 
     def test_update_task(self):

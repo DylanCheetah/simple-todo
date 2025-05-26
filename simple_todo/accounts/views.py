@@ -36,7 +36,7 @@ def register(request):
                     request,
                     "accounts/register.html",
                     {
-                        "err_msg": "The username you chose is already taken. Please choose a different username and try again.",
+                        "err_msg": "The username you chose is already taken. Please choose a different username and try again.",  # noqa: E501
                         "form": RegistrationForm()
                     }
                 )
@@ -86,11 +86,11 @@ def login_view(request):
                     request,
                     "accounts/login.html",
                     {
-                        "err_msg": "The supplied credentials were invalid. Please try again.",
+                        "err_msg": "The supplied credentials were invalid. Please try again.",  # noqa: E501
                         "form": LoginForm()
                     }
                 )
-            
+
             # Log the user in and redirect
             login(request, user)
             url = request.GET.get("next", "/")
