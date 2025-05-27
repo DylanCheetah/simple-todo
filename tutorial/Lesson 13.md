@@ -217,7 +217,7 @@ export default function NavBar() {
 
 Create `simple-todo-frontend/src/pages/Home.js` with the following content:
 ```js
-import React, {useState} from "react";
+import React from "react";
 
 
 export function Component() {
