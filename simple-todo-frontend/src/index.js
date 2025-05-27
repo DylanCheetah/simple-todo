@@ -4,7 +4,8 @@ import React from "react";
 import {createRoot} from "react-dom/client";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-// Import CSS files here
+import "./bootstrap.css";
+import "./bootstrap.bundle";
 
 
 // Create browser router
