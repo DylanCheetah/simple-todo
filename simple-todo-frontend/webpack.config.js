@@ -64,6 +64,15 @@ module.exports = {
                     }
                 }
             ]
-        }
+        },
+        proxy: [
+            {
+                context: [
+                    "/api/",
+                    "/static/",
+                ],
+                target: "http://localhost:8000"
+            }
+        ]
     }
 };
