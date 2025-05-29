@@ -28,4 +28,4 @@ export default function NavBar() {
 ```
 
 When you visit the homepage now, it should look like this:
-TODO
+![image](https://github.com/user-attachments/assets/91231521-6894-43b8-83fe-1b9ecdfdd7f4)
