@@ -72,6 +72,7 @@ module.exports = {
         proxy: [
             {
                 context: [
+                    "/accounts/",
                     "/api/",
                     "/static/",
                 ],
