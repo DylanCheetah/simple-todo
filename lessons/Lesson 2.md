@@ -41,4 +41,10 @@ simple-todo/
     requirements.txt
 ```
 
-`django-admin` automatically creates a new folder for our Django project. Inside will be a `manage.py` script which is used to manage the Django project. There will also be a sub-folder with the same name as the project which contains a few scripts needed by all Django projects.
+`django-admin` automatically creates a new folder for our Django project. Inside will be a `manage.py` script which is used to manage the Django project. There will also be a sub-folder with the same name as the project which contains a few scripts needed by all Django projects. Next, we need to test the configuration of our new Django project:
+01. execute `cd simple_todo`
+02. execute `python manage.py runserver`
+03. visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in a web browser
+
+If the Django project is properly configured, we should see the following page:
+*screenshot*
