@@ -11,5 +11,5 @@ In this tutorial series, we will be learning how to develop a todo list applicat
 08. install the Material Kivy extension provided by haddie bakrie
 09. download Python from the page which corresponds to your OS
     * Windows: [https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/)
-    * Linux: install via package manager
+    * Linux: install `python3-venv` package via package manager
     * MacOS: [https://www.python.org/downloads/macos/](https://www.python.org/downloads/macos/)
