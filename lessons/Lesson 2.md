@@ -47,4 +47,4 @@ simple-todo/
 03. visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in a web browser
 
 If the Django project is properly configured, we should see the following page:
-*screenshot*
+![django test page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/01-django_test_page.png?raw=true)
