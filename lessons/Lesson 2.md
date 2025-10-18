@@ -41,10 +41,12 @@ simple-todo/
     requirements.txt
 ```
 
-`django-admin` automatically creates a new folder for our Django project. Inside will be a `manage.py` script which is used to manage the Django project. There will also be a sub-folder with the same name as the project which contains a few scripts needed by all Django projects. Next, we need to test the configuration of our new Django project:
+`django-admin` automatically creates a new folder for our Django project. Inside will be a `manage.py` script which is used to manage the Django project. There will also be a sub-folder with the same name as the project which contains a few scripts needed by all Django projects. Next, we need to test the configuration of our new Django project by starting a development server and viewing the homepage of our project:
 01. execute `cd simple_todo`
 02. execute `python manage.py runserver`
 03. visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in a web browser
 
 If the Django project is properly configured, we should see the following page:
 ![django test page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/01-django_test_page.png?raw=true)
+
+The development server will automatically reload your project whenever you make changes to it. Therefore, you can leave the development server running while working on your project. If the development server happens to crash for some reason, stop it by pressing Ctrl+C in its terminal and restart it.
