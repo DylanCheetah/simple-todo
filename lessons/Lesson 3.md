@@ -54,7 +54,16 @@ from django.db import models
 # ==================
 class TodoList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todo_lists")
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                "user",
+                "name",
+                name="unique_user_name"
+            )
+        ]
 
     def __str__(self):
         return f"{self.name} ({self.user})"
@@ -62,17 +71,26 @@ class TodoList(models.Model):
 
 class Task(models.Model):
     todo_list = models.ForeignKey(TodoList, on_delete=models.CASCADE, related_name="tasks")
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=64)
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                "todo_list",
+                "name",
+                name="unique_todo_list_name"
+            )
+        ]
 
     def __str__(self):
         return f"{self.name} ({self.todo_list})"
 ```
 
-We need 2 data model classes for our todo list app. The `TodoList` class has 2 fields and will represent a todo list. `user` will be a foreign key field which references the built-in `User` class and `name` will be the name of a todo list. By associating each todo list with a user, we can support multiple users. This is known as a multi-tenant web application. We set the delete mode of the `user` field to cascade so that all todo lists associated with a user will be deleted if a user is deleted. And we set the related name to "todo_lists" so we can easily get all the todo lists associated with a user via a `todo_lists` backreference attribute which will automatically be added to the `User` class. The `name` field will have a maximum length of 64 and be unique to prevent duplicate todo list names. The `__str__` method returns the string representation of data model instances. This will be useful when we register the data model class with the admin site.
+We need 2 data model classes for our todo list app. The `TodoList` class has 2 fields and will represent a todo list. `user` will be a foreign key field which references the built-in `User` class and `name` will be the name of a todo list. By associating each todo list with a user, we can support multiple users. This is known as a multi-tenant web application. We set the delete mode of the `user` field to cascade so that all todo lists associated with a user will be deleted if a user is deleted. And we set the related name to "todo_lists" so we can easily get all the todo lists associated with a user via a `todo_lists` backreference attribute which will automatically be added to the `User` class. The `name` field will have a maximum length of 64. The `Meta` sub-class defines a unique constraint on the `user` and `name` fields. The `__str__` method returns the string representation of data model instances. This will be useful when we register the data model class with the admin site.
 
-The `Task` class has 4 fields and will represent a task on a todo list. `todo_list` will be a foreign key field which references the `TodoList` class, `name` will be the name of a task, `due_date` will be the due date of a task, and `completed` will indicate if a task has been completed. We set the delete mode of the `todo_list` field to cascade so that all tasks associated with a todo list will be deleted if a todo list is deleted. And we set the related name to "tasks" so we can easily get all the tasks associated with a todo list via a `tasks` attribute which will automatically be added to the `TodoList` class. The `name` field will have a maximum length of 64 and be unique to prevent duplicate task names. The `completed` field has a default value of False so we won't need to set it when we create a new task.
+The `Task` class has 4 fields and will represent a task on a todo list. `todo_list` will be a foreign key field which references the `TodoList` class, `name` will be the name of a task, `due_date` will be the due date of a task, and `completed` will indicate if a task has been completed. We set the delete mode of the `todo_list` field to cascade so that all tasks associated with a todo list will be deleted if a todo list is deleted. And we set the related name to "tasks" so we can easily get all the tasks associated with a todo list via a `tasks` attribute which will automatically be added to the `TodoList` class. The `name` field will have a maximum length of 64. The `completed` field has a default value of False so we won't need to set it when we create a new task. The `Meta` sub-class defines a unique constraint on the `user` and `name` fields. The `__str__` method returns the string representation of data model instances. This will be useful when we register the data model class with the admin site.
 
 Whenever we modify our data model classes we will also need to make and apply migrations to the database for our Django project:
 01. execute `python manage.py makemigrations`
