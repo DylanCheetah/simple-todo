@@ -56,12 +56,18 @@ class TodoList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todo_lists")
     name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return f"{self.name} ({self.user})"
+
 
 class Task(models.Model):
     todo_list = models.ForeignKey(TodoList, on_delete=models.CASCADE, related_name="tasks")
     name = models.CharField(max_length=64)
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.name} ({self.todo_list})"
 ```
 
 We need 2 data models for our todo list app. The `TodoList` class has 2 fields and will represent a todo list. `user` will be a foreign key field which references the built-in `User` class and `name` will be the name of a todo list. By associating each todo list with a user, we can support multiple users. This is known as a multi-tenant web application. We set the delete mode of the `user` field to cascade so that all todo lists associated with a user will be deleted if a user is deleted. And we set the related name to "todo_lists" so we can easily get all the todo lists associated with a user via a `todo_lists` attribute which will automatically be added to the `User` class.
