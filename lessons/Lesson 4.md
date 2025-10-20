@@ -31,10 +31,10 @@ python manage.py createsuperuser
 ```
 
 You will be asked to provide a username, email address, and password. Afterwards, visit [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) in a web browser and you should see this page:
-*screenshot*
+![admin site login](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/02-admin_site_login.png?raw=true)
 
 Log in with the username and password you provided when creating the superuser account and you should see this page:
-*screenshot*
+![admin site homepage](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/03-admin_site_homepage.png?raw=true)
 
 Each app and its corresponding data models will be listed on this page. However, our todo list app is currently listed as "TODO_LIST" on this page. We can fix this by opening `simple_todo/todo_list/apps.py` and modifying it like this:
 ```python
@@ -48,18 +48,18 @@ class TodoListConfig(AppConfig):
 ```
 
 If you refresh the page, the todo list app should now be listed as "Todo List":
-*screenshot*
+![custom app name](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/04-custom_app_name.png?raw=true)
 
 Click on the Todo lists link and you should see this page:
-*screenshot*
+![todo lists page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/05-todo_list_page.png?raw=true)
 
 At the moment, we have no todo lists. Let's add some. Click the Add link beside the Todo lists link and you should see this page:
-*screenshot*
+![todo list admin form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/06-todo_list_admin_form.png?raw=true)
 
 Fill out the form and click the Save and add another button. Then add 2 more todo lists in a similar manner. Return to the Todo lists page, you should see something similar to this:
-*screenshot*
+![sample todo lists](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/07-sample_todo_lists.png?raw=true)
 
 If you click on any todo list, you will see a form you can use to edit or delete the todo list:
-*screenshot*
+![todo list admin form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/08-todo_list_admin_form.png?raw=true)
 
 Now that you have created some todo lists, try creating some tasks by clicking the Add link beside the Tasks link. Then visit the Tasks page to view the tasks you created. You can also try using the search box on the Tasks page to search tasks by their name and todo list. The Todo lists page has a search box as well which can be used to search by name or user. If you wish, you can also try creating additional users via the Add link beside the Users link and adding todo lists for those users as well.
