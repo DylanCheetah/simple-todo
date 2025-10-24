@@ -116,7 +116,7 @@ Now create `simple_todo/layout/templates/layout/layout.html` with the following 
             <br/>
             <div class="row justify-content-center">
                 <div class="col">
-                    Copyright (c) {{ year }} by {{ AUTHOR_NAME }}
+                    Copyright (c) {% now 'Y' %} by {{ AUTHOR_NAME }}
                 </div>
             </div>
         </div>
@@ -124,10 +124,10 @@ Now create `simple_todo/layout/templates/layout/layout.html` with the following 
 </html>
 ```
 
-`{% load static %}` is used at the top of the template to load the `static` tag. Afterwards we have the basic structure which will be shared by our webpages. We use `{{ WEBSITE_NAME }}` to insert the value of the `WEBSITE_NAME` context variable into the title of the webpage. `{% block title %}{% endblock %}` will serve as a placeholder for the title of each individual page that we will insert via the template for each page. `{% static 'layout/css/bootstrap.min.css' %}` will insert the URL of the Bootstrap CSS file into the `href` attribute of the `link` element. `{% static 'layout/js/bootstrap.bundle.min.js' %}` will insert the URL of the Bootstrap JS file into the `src` attribute of the `script` element. `{% block content %}{% endblock %}` will server as a placeholder for the content of each page that we will insert via the template for each page as well. We use `{{ year }}` to insert the value of the `year` context variable into the copyright info. And we use `{{ AUTHOR_NAME }}` to insert the value of the `AUTHOR_NAME` context variable into the copyright info. Next, we can test out our layout template. Execute `python manage.py shell` to start a Django shell. Then execute the following Python code in the Django shell:
+`{% load static %}` is used at the top of the template to load the `static` tag. Afterwards we have the basic structure which will be shared by our webpages. We use `{{ WEBSITE_NAME }}` to insert the value of the `WEBSITE_NAME` context variable into the title of the webpage. `{% block title %}{% endblock %}` will serve as a placeholder for the title of each individual page that we will insert via the template for each page. `{% static 'layout/css/bootstrap.min.css' %}` will insert the URL of the Bootstrap CSS file into the `href` attribute of the `link` element. `{% static 'layout/js/bootstrap.bundle.min.js' %}` will insert the URL of the Bootstrap JS file into the `src` attribute of the `script` element. `{% block content %}{% endblock %}` will server as a placeholder for the content of each page that we will insert via the template for each page as well. We use `{% now 'Y' %}` to insert the current year into the copyright info. And we use `{{ AUTHOR_NAME }}` to insert the value of the `AUTHOR_NAME` context variable into the copyright info. Next, we can test out our layout template. Execute `python manage.py shell` to start a Django shell. Then execute the following Python code in the Django shell:
 ```python
 from django.template import loader
-print(loader.render_to_string("layout/layout.html", {"WEBSITE_NAME": "Test", "AUTHOR_NAME": "Tester", "year": 2025}))
+print(loader.render_to_string("layout/layout.html", {"WEBSITE_NAME": "Test", "AUTHOR_NAME": "Tester"}))
 ```
 
 You should see the following HTML code printed to the terminal:
