@@ -111,4 +111,4 @@ urlpatterns = [
 ```
 
 Now if you visit [http://127.0.0.1:8000/accounts/register/](http://127.0.0.1:8000/accounts/register/) in a web browser you should see this page:
-*screenshot*
+![user registration page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/09-user_registation.png?raw=true)
