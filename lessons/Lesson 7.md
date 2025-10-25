@@ -107,7 +107,7 @@ urlpatterns = [
 ```
 
 If you visit [http://127.0.0.1:8000/accounts/login/](http://127.0.0.1:8000/accounts/login/) in a web browser, you should see this page:
-*screenshot*
+![user login page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/10-user_login.png?raw=true)
 
 We also need to add our log out view. The log out view doesn't need a template though. Open `simple_todo/accounts/views.py` and modify it like this:
 ```python
@@ -165,6 +165,6 @@ urlpatterns = [
 ```
 
 If you visit [http://127.0.0.1:8000/accounts/logout/](http://127.0.0.1:8000/accounts/logout/) in a web browser, you will get a 405 Method Not Allowed error page for now. This is because the log out view only supports the "POST" HTTP method:
-*screenshot*
+![user logout error page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/11-user_logout_error.png?raw=true)
 
 We will add a log out form in a later lesson.
