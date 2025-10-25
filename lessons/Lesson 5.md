@@ -115,7 +115,7 @@ Now create `simple_todo/layout/templates/layout/layout.html` with the following 
             {% endblock %}
             <br/>
             <div class="row justify-content-center">
-                <div class="col">
+                <div class="col-8">
                     Copyright (c) {% now 'Y' %} by {{ AUTHOR_NAME }}
                 </div>
             </div>
@@ -146,7 +146,7 @@ You should see the following HTML code printed to the terminal:
 
             <br/>
             <div class="row justify-content-center">
-                <div class="col">
+                <div class="col-8">
                     Copyright (c) 2025 by Tester
                 </div>
             </div>
