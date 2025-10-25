@@ -53,7 +53,7 @@ from django.contrib.auth import forms as auth_forms
 # Classes
 # =======
 class UserCreationForm(auth_forms.BaseUserCreationForm):
-    class Meta(auth_forms.UserCreationForm.Meta):
+    class Meta(auth_forms.BaseUserCreationForm.Meta):
         widgets = {
             "username": forms.TextInput(attrs={"class": "form-control"})
         }
@@ -63,8 +63,8 @@ class UserCreationForm(auth_forms.BaseUserCreationForm):
         super().__init__(*args, **kwargs)
 
         # Apply Bootstrap styling to password fields
-        self.fields["password1"].widget.attrs = {"class": "form-control"}
-        self.fields["password2"].widget.attrs = {"class": "form-control"}
+        self.fields["password1"].widget.attrs.update({"class": "form-control"})
+        self.fields["password2"].widget.attrs.update({"class": "form-control"})
 ```
 
 We can sub-class the `BaseUserCreationForm` provided by Django in order to create our own user creation form. Inside our `UserCreationForm` class we need to sub-class the inner class `Meta` and add a `widgets` dictionary to override the default widget used for the `username` field in order to add Bootstrap styling to it. Since both password fields are defined declaratively, we will need to also override the constructor and set the attributes of them manually after calling the base constructor. If we wanted to include additional fields, we would need to also override the `fields` attribute of the inner class `Meta` and possibly add additional fields declaratively. Now we can create our user registration view. Open `simple_todo/accounts/views.py` and modify it like this:
