@@ -125,5 +125,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Website constants
+from django.urls import reverse_lazy
+
 WEBSITE_NAME = "Simple Todo"
 AUTHOR_NAME = "DylanCheetah"
+LOGIN_REDIRECT_URL = reverse_lazy("todo-lists")
+LOGOUT_REDIRECT_URL = reverse_lazy("todo-lists")
