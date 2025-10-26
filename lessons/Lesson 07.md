@@ -1,4 +1,4 @@
-# Lesson 7: User Authentication
+# Lesson 07: User Authentication
 
 Another important feature of a multi-tenant web application is user authentication. In order to provide this feature to users, we will need to create log in and log out views. Let's start by creating a template for our login page:
 ```html

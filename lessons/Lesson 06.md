@@ -1,4 +1,4 @@
-# Lesson 6: User Registration
+# Lesson 06: User Registration
 
 Since our todo list will be a multi-tenant web application we will need a way for users to create new accounts. At the moment, the only way we can create new accounts is by adding them via the admin site. However, many types of web applications need a way for users to create their own accounts without assistance from staff. For our todo list we will add an account registration page. Most websites will require an email address and do email verification. Having a CAPTCHA to help keep bots out is common as well. However, we will omit these to keep things simple. First we need to create a new "accounts" application to handle user registration for us:
 ```sh

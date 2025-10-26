@@ -1,4 +1,4 @@
-# Lesson 2: Project Setup
+# Lesson 02: Project Setup
 
 Once you have installed the prerequisties, you can start setting up a new project. First, create a folder for your new project. I'll be naming my project folder `simple-todo` but you can use any name you prefer. You can also setup source control and CI/CD at this point if you wish. However, I will not be covering that topic in this tutorial. Before we get started, we will need to create a virtual environment and install Django into it:
 01. open your project folder in Visual Studio Code

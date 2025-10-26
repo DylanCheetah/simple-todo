@@ -1,4 +1,4 @@
-# Lesson 5: Page Layout and Bootstrap
+# Lesson 05: Page Layout and Bootstrap
 
 Before we begin developing the web interface for our todo list, we need to setup the common layout all our pages will have and install Bootstrap. Let's start by creating a new app called "layout":
 ```sh

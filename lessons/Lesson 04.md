@@ -1,4 +1,4 @@
-# Lesson 4: Admin Site
+# Lesson 04: Admin Site
 
 Now that we have created our data model classes, we need to provide a way for site admins to manage them. Django provides an admin site for this purpose, but we will need to configure it so we can manage our new data models. First, we need to open `simple_todo/todo_list/admin.py` and modify it like this:
 ```python
