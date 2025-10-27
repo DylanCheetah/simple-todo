@@ -195,4 +195,4 @@ urlpatterns = [
 ```
 
 If we visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in a web browser we will be redirected to the login page if we aren't already logged in. Otherwise, we will see the homepage:
-*screenshot*
+![todo lists page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/12-todo_lists.png?raw=true)
