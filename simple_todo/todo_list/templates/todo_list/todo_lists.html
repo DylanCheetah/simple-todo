@@ -1,0 +1,57 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %}Todo Lists{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <h1 class="col-8">Todo Lists</h1>
+    </div>
+    <br/>
+    <div class="row justify-content-center">
+        <form class="col-8 card bg-light" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                <h3 class="card-title">New Todo List</h3>
+                {{ form }}
+                <br/>
+                <input class="btn btn-primary" type="submit" value="Create Todo List"/>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <div class="row justify-content-center">
+        <div class="col-8 card bg-light">
+            <div class="card-body">
+                <h3 class="card-title">Your Todo Lists</h3>
+                {% for todo_list in page_obj %}
+                    <div class="row">
+                        <div class="col m-1 card bg-light">
+                            <div class="row card-body">
+                                <a class="col-10 nav-link" href="">{{ todo_list.name }}</a>
+                                <a class="col-2 btn btn-danger" href="">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="row">
+                        <div class="col">No Data</div>
+                    </div>
+                {% endfor %}
+                <br/>
+                <div class="row justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <a class="col-2 btn btn-primary" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% else %}
+                        <a class="col-2 btn btn-secondary pe-none">Previous</a>
+                    {% endif %}
+                    <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+                    {% if page_obj.has_next %}
+                        <a class="col-2 btn btn-primary" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    {% else %}
+                        <a class="col-2 btn btn-secondary pe-none">Next</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
