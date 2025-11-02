@@ -61,7 +61,7 @@ Now that we have user registration and authentication setup for our todo list we
 {% endblock %}
 ```
 
-`{% for todo_list in todo_lists %}` is used to iterate over the `todo_lists` context variable. `{% empty %}` is used to define content to be displayed when the length of the object list is 0. `{% endfor %}` is used to end the for loop. Notice that we can use the `if`, `else`, and `endif` Django tags to render different blocks of HTML depending on the value of context variables. For now we will leave the href for each todo list and its delete button blank. Create `simple_todo/todo_list/forms.py` with the following content:
+`{% for todo_list in page_obj %}` is used to iterate over the `page_obj` context variable. `{% empty %}` is used to define content to be displayed when the length of the page object is 0. `{% endfor %}` is used to end the for loop. Notice that we can use the `if`, `else`, and `endif` Django tags to render different blocks of HTML depending on the value of context variables. For now we will leave the href for each todo list and its delete button blank. Create `simple_todo/todo_list/forms.py` with the following content:
 ```python
 from django import forms
 
@@ -109,6 +109,7 @@ class TodoListListView(LayoutMixin, ListView):
 class TodoListCreateView(LayoutMixin, CreateView):
     model = TodoList
     form_class = TodoListForm
+    success_url = reverse_lazy("todo-lists")
 
     def form_valid(self, form):
         # Associate the new todo list with the current user
@@ -116,7 +117,7 @@ class TodoListCreateView(LayoutMixin, CreateView):
         return super().form_valid(form)
 ```
 
-In our `TodoListListView` class we need to set the template name. We will also set the `paginate_by` attribute to 10 in order to control the number of todo lists which can be displayed per page. The `get_queryset` method should return the objects we need to display. The `get_context_data` method should get the context from the base method and add a `TodoListForm` instance to it before returning the context. In our `TodoListCreateView` class we need to set the `model` attribute to our todo list model and we also need to set the `form_class` attribute to our todo list form class. The `form_valid` method associates the new todo list with the current user before calling the base method. Both classes should have `LayoutMixin` in their base class list. The next thing we need to do is associate both views with the same URL. We will do this by creating a third view. The third view will subclass `View` and `LoginRequiredMixin`:
+In our `TodoListListView` class we need to set the template name. We will also set the `paginate_by` attribute to 10 in order to control the number of todo lists which can be displayed per page. The `get_queryset` method should return the objects we need to display. The `get_context_data` method should get the context from the base method and add a `TodoListForm` instance to it before returning the context. In our `TodoListCreateView` class we need to set the `model` attribute to our todo list model and we also need to set the `form_class` attribute to our todo list form class. `success_url` should be set to the URL to redirect to on success. The `form_valid` method associates the new todo list with the current user before calling the base method. Both classes should have `LayoutMixin` in their base class list. The next thing we need to do is associate both views with the same URL. We will do this by creating a third view. The third view will subclass `View` and `LoginRequiredMixin`:
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -149,6 +150,7 @@ class TodoListListView(LayoutMixin, ListView):
 class TodoListCreateView(LayoutMixin, CreateView):
     model = TodoList
     form_class = TodoListForm
+    success_url = reverse_lazy("todo-lists")
 
     def form_valid(self, form):
         # Associate the new todo list with the current user
@@ -156,7 +158,7 @@ class TodoListCreateView(LayoutMixin, CreateView):
         return super().form_valid(form)
     
 
-class TodoListView(LoginRequiredMixin, View):
+class TodoListsView(LoginRequiredMixin, View):
     login_url = reverse_lazy("user-login")
     
     def get(self, request, *args, **kwargs):
@@ -170,7 +172,7 @@ class TodoListView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
 ```
 
-The `TodoListView` class has `LoginRequiredMinxin` as a base class to require users to be logged in to view the homepage. Inside the `TodoListView` class we need to set the `login_url` attribute to the path of our login page. The `get` method calls `as_view` on our `TodoListListView` class to instanciate the view and then calls the view with the same parameters it received. The `post` method does the same with the `TodoListCreateView`. Now we need to map our todo list view to a URL. Create `simple_todo/todo_list/urls.py` with the following content:
+The `TodoListsView` class has `LoginRequiredMinxin` as a base class to require users to be logged in to view the homepage. Inside the `TodoListsView` class we need to set the `login_url` attribute to the path of our login page. The `get` method calls `as_view` on our `TodoListListView` class to instanciate the view and then calls the view with the same parameters it received. The `post` method does the same with the `TodoListCreateView`. Now we need to map our todo list view to a URL. Create `simple_todo/todo_list/urls.py` with the following content:
 ```python
 from django.urls import path
 
@@ -178,7 +180,7 @@ from . import views
 
 
 urlpatterns = [
-    path("", views.TodoListView.as_view(), name="todo-lists")
+    path("", views.TodoListsView.as_view(), name="todo-lists")
 ]
 ```
 
