@@ -1,20 +1,20 @@
 {% extends 'layout/layout.html' %}
 
-{% block title %}Todo Lists{% endblock %}
+{% block title %}Todo List{% endblock %}
 
 {% block content %}
     <div class="row justify-content-center">
-        <h1 class="col-8">Todo Lists</h1>
+        <h1 class="col-8">{{ object.name }}</h1>
     </div>
     <br/>
     <div class="row justify-content-center">
         <form class="col-8 card bg-light" method="POST">
             {% csrf_token %}
             <div class="card-body">
-                <h3 class="card-title">New Todo List</h3>
+                <h3 class="card-title">New Task</h3>
                 {{ form }}
                 <br/>
-                <input class="btn btn-primary" type="submit" value="Create Todo List"/>
+                <input class="btn btn-primary" type="submit" value="Create Task"/>
             </div>
         </form>
     </div>
@@ -22,12 +22,13 @@
     <div class="row justify-content-center">
         <div class="col-8 card bg-light">
             <div class="card-body">
-                <h3 class="card-title">Your Todo Lists</h3>
-                {% for todo_list in page_obj %}
+                <h3 class="card-title">Tasks</h3>
+                {% for task in page_obj %}
                     <div class="row">
                         <div class="col m-1 card bg-light">
                             <div class="row card-body">
-                                <a class="col-10 nav-link" href="{% url 'todo-list' todo_list.pk %}">{{ todo_list.name }}</a>
+                                <a class="col-8 nav-link" href="">{{ task.name }}</a>
+                                <div class="col-2">{{ task.due_date }}</div>
                                 <a class="col-2 btn btn-danger" href="">Delete</a>
                             </div>
                         </div>
