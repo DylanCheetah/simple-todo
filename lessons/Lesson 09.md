@@ -437,4 +437,4 @@ The URL pattern for our todo list view has a URL parameter called `pk` which wil
 ```
 
 `{% url 'todo-list' todo_list.pk %}` is used to generate the correct URL for the todo list based on the name of the todo list detail view and the primary key of the referenced todo list. If you visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) at this point and click the name of a todo list you should now see this page:
-*screenshot*
+![todo list detail view](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/13-todo_list_detail.png?raw=true)
