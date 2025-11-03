@@ -220,7 +220,7 @@ We also need to modify `simple_todo/todo_list/templates/todo_list/todo_list.html
 ```
 
 If you click the Edit button on any todo list details page now, you should see this page:
-*screenshot*
+![todo list edit page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/14-todo_list_edit.png?raw=true)
 
 Now we can add a way to delete todo lists. First we need to create a class which extends `DeleteView` and
 `LoginRequired`:
