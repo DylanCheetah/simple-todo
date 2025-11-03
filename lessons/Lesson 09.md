@@ -147,7 +147,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDetailView(SingleObjectMixin, ListView):
+class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
     template_name = "todo_list/todo_list.html"
     paginate_by = 10
 
@@ -224,7 +224,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDetailView(SingleObjectMixin, ListView):
+class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
     template_name = "todo_list/todo_list.html"
     paginate_by = 10
 
@@ -246,7 +246,7 @@ class TodoListDetailView(SingleObjectMixin, ListView):
         return ctx
     
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LayoutMixin, CreateView):
     model = Task
     form_class = TaskForm
 
