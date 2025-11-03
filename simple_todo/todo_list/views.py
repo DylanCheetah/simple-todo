@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
@@ -100,3 +100,23 @@ class TodoListView(LoginRequiredMixin, View):
         # Dispatch HTTP POST requests to the task create view
         view = TaskCreateView.as_view()
         return view(request, *args, **kwargs)
+    
+
+class TodoListUpdateView(LoginRequiredMixin, LayoutMixin, UpdateView):
+    template_name = "todo_list/todo_list_edit.html"
+    model = TodoList
+    form_class = TodoListForm
+
+    def get_queryset(self):
+        return self.request.user.todo_lists.all()
+    
+    def get_success_url(self):
+        return reverse("todo-list", args=(self.kwargs["pk"],))
+    
+
+class TodoListDeleteView(LoginRequiredMixin, DeleteView):
+    model = TodoList
+    success_url = reverse_lazy("todo-lists")
+
+    def get_queryset(self):
+        return self.request.user.todo_lists.all()
