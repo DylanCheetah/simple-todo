@@ -1,4 +1,4 @@
-# Lesson 03: Models
+# Lesson 03: Data Models
 
 Now that we have our basic project structure setup, we can begin developing our todo list. Django projects are divided into separate apps. Therefore we will need to start by creating a new app within our Django project:
 01. click Terminal > New Terminal
