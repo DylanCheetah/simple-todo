@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView
 from .forms import UserAuthenticationForm, UserCreationForm
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User

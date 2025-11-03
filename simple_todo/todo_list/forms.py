@@ -3,8 +3,8 @@ from django import forms
 from .models import Task, TodoList
 
 
-# Classes
-# =======
+# Form Classes
+# ============
 class TodoListForm(forms.ModelForm):
     class Meta:
         model = TodoList

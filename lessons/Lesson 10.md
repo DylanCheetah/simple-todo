@@ -38,8 +38,8 @@ from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
@@ -236,8 +236,8 @@ from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10

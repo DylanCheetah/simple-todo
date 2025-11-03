@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth import forms as auth_forms
 
 
-# Classes
-# =======
+# Form Classes
+# ============
 class UserCreationForm(auth_forms.BaseUserCreationForm):
     class Meta(auth_forms.BaseUserCreationForm.Meta):
         widgets = {

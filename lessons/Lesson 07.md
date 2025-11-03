@@ -30,8 +30,8 @@ from django import forms
 from django.contrib.auth import forms as auth_forms
 
 
-# Classes
-# =======
+# Form Classes
+# ============
 class UserCreationForm(auth_forms.BaseUserCreationForm):
     class Meta(auth_forms.BaseUserCreationForm.Meta):
         widgets = {
@@ -68,8 +68,8 @@ from django.views.generic.edit import CreateView
 from .forms import UserAuthenticationForm, UserCreationForm
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User
@@ -119,8 +119,8 @@ from django.views.generic.edit import CreateView
 from .forms import UserAuthenticationForm, UserCreationForm
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User

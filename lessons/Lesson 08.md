@@ -68,8 +68,8 @@ from django import forms
 from .models import TodoList
 
 
-# Classes
-# =======
+# Form Classes
+# ============
 class TodoListForm(forms.ModelForm):
     class Meta:
         model = TodoList
@@ -89,8 +89,8 @@ from .forms import TodoListForm
 from .models import TodoList
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
@@ -129,8 +129,8 @@ from .forms import TodoListForm
 from .models import TodoList
 
 
-# Classes
-# =======
+# View Classes
+# ============
 class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
