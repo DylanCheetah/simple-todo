@@ -162,23 +162,35 @@ WEBSITE_NAME = "Simple Todo"
 AUTHOR_NAME = "DylanCheetah"
 ```
 
-Next, open `simple_todo/layout/views.py` and modify it like this:
+In order to make these 2 variable available via the template context of all views, we will need to create a context processor. Create `simple_todo/layout/ctx_proc.py` with the following content:
 ```python
 from django.conf import settings
-from django.shortcuts import render
 
 
-# Classes
-# =======
-class LayoutMixin(object):
-    def get_context_data(self, **kwargs):
-        # Get base context
-        ctx = super().get_context_data(**kwargs)
-
-        # Add layout context variables
-        ctx["WEBSITE_NAME"] = settings.WEBSITE_NAME
-        ctx["AUTHOR_NAME"] = settings.AUTHOR_NAME
-        return ctx
+# Context Processor Functions
+# ===========================
+def layout_ctx(request):
+    return {
+        "WEBSITE_NAME": settings.WEBSITE_NAME,
+        "AUTHOR_NAME": settings.AUTHOR_NAME
+    }
 ```
 
-The `LayoutMixin` class will be used to add the context variables required by our layout template so we won't have to keep adding them to every view we create for our website. It's `get_context_data` method calls the base method to get the original context. Then it adds `WEBSITE_NAME` and `AUTHOR_NAME` to it. Both values come from the `settings` module which we can import from `django.conf`.
+The `layout_ctx` method returns a dictionary containing the context variables which should be made available to all views. We can import our settings module from `django.conf` to access the variables defined in it. To use our new context processor we must add its full name to the list of context processors in `simple_todo/simple_todo/settings.py`:
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                "layout.ctx_proc.layout_ctx"
+            ],
+        },
+    },
+]
+```
