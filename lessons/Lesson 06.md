@@ -75,19 +75,18 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import UserCreationForm
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class UserCreateView(LayoutMixin, CreateView):
+class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy("user-login")
 ```
 
-Our user registration view is simply a sub-class of `CreateView` and `LayoutMixin`. Make sure that `LayoutMixin` is first. We must specify the template name, model, and form class to use. And we need a URL to redirect to when a user account is successfully created. However, the logic for handling user account creation is handled by the view and form. Now we just need to map our new view to a URL. Create `simple_todo/accounts/urls.py` with the following content:
+Our user registration view is simply a sub-class of `CreateView`. We must specify the template name, model, and form class to use. And we need a URL to redirect to when a user account is successfully created. However, the logic for handling user account creation is handled by the view and form. Now we just need to map our new view to a URL. Create `simple_todo/accounts/urls.py` with the following content:
 ```python
 from django.urls import path
 

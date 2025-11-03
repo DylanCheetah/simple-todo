@@ -66,24 +66,23 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import UserAuthenticationForm, UserCreationForm
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class UserCreateView(LayoutMixin, CreateView):
+class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy("user-login")
 
 
-class UserLoginView(LayoutMixin, LoginView):
+class UserLoginView(LoginView):
     template_name = "accounts/login.html"
     authentication_form = UserAuthenticationForm
 ```
 
-Our `UserLoginView` class must sub-class `LoginView` and `LayoutMixin`. Make sure that `LayoutMixin` is first. We must specify the template name and authentication form to use. This view will handle the logic for logging in a user. We also need to open `simple_todo/simple_todo/settings.py` and add `LOGIN_REDIRECT_URL` to the website constants section. This will be the default URL the login view redirects to upon success:
+Our `UserLoginView` class must sub-class `LoginView`. We must specify the template name and authentication form to use. This view will handle the logic for logging in a user. We also need to open `simple_todo/simple_todo/settings.py` and add `LOGIN_REDIRECT_URL` to the website constants section. This will be the default URL the login view redirects to upon success:
 ```python
 # Website constants
 from django.urls import reverse_lazy
@@ -118,19 +117,18 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import UserAuthenticationForm, UserCreationForm
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class UserCreateView(LayoutMixin, CreateView):
+class UserCreateView(CreateView):
     template_name = "accounts/register.html"
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy("user-login")
 
 
-class UserLoginView(LayoutMixin, LoginView):
+class UserLoginView(LoginView):
     template_name = "accounts/login.html"
     authentication_form = UserAuthenticationForm
 
