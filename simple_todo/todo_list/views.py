@@ -8,12 +8,11 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -27,7 +26,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
@@ -52,7 +51,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
+class TodoListDetailView(SingleObjectMixin, ListView):
     template_name = "todo_list/todo_list.html"
     paginate_by = 10
 
@@ -74,7 +73,7 @@ class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
         return ctx
     
 
-class TaskCreateView(LayoutMixin, CreateView):
+class TaskCreateView(CreateView):
     model = Task
     form_class = TaskForm
 
@@ -102,7 +101,7 @@ class TodoListView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListUpdateView(LoginRequiredMixin, LayoutMixin, UpdateView):
+class TodoListUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "todo_list/todo_list_edit.html"
     model = TodoList
     form_class = TodoListForm

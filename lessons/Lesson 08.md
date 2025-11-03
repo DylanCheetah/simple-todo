@@ -87,12 +87,11 @@ from django.views.generic.edit import CreateView
 
 from .forms import TodoListForm
 from .models import TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -106,7 +105,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
@@ -117,7 +116,7 @@ class TodoListCreateView(LayoutMixin, CreateView):
         return super().form_valid(form)
 ```
 
-In our `TodoListListView` class we need to set the template name. We will also set the `paginate_by` attribute to 10 in order to control the number of todo lists which can be displayed per page. The `get_queryset` method should return the objects we need to display. The `get_context_data` method should get the context from the base method and add a `TodoListForm` instance to it before returning the context. In our `TodoListCreateView` class we need to set the `model` attribute to our todo list model and we also need to set the `form_class` attribute to our todo list form class. `success_url` should be set to the URL to redirect to on success. The `form_valid` method associates the new todo list with the current user before calling the base method. Both classes should have `LayoutMixin` in their base class list. The next thing we need to do is associate both views with the same URL. We will do this by creating a third view. The third view will subclass `View` and `LoginRequiredMixin`:
+In our `TodoListListView` class we need to set the template name. We will also set the `paginate_by` attribute to 10 in order to control the number of todo lists which can be displayed per page. The `get_queryset` method should return the objects we need to display. The `get_context_data` method should get the context from the base method and add a `TodoListForm` instance to it before returning the context. In our `TodoListCreateView` class we need to set the `model` attribute to our todo list model and we also need to set the `form_class` attribute to our todo list form class. `success_url` should be set to the URL to redirect to on success. The `form_valid` method associates the new todo list with the current user before calling the base method. The next thing we need to do is associate both views with the same URL. We will do this by creating a third view. The third view will subclass `View` and `LoginRequiredMixin`:
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -128,12 +127,11 @@ from django.views.generic.edit import CreateView
 
 from .forms import TodoListForm
 from .models import TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -147,7 +145,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")

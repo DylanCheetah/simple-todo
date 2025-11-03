@@ -104,12 +104,11 @@ from django.views.generic.edit import CreateView
 
 from .forms import TaskForm, TodoListForm
 from .models import TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -123,7 +122,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
 
@@ -147,7 +146,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
+class TodoListDetailView(SingleObjectMixin, ListView):
     template_name = "todo_list/todo_list.html"
     paginate_by = 10
 
@@ -181,12 +180,11 @@ from django.views.generic.edit import CreateView
 
 from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -200,7 +198,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
 
@@ -224,7 +222,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
+class TodoListDetailView(SingleObjectMixin, ListView):
     template_name = "todo_list/todo_list.html"
     paginate_by = 10
 
@@ -246,7 +244,7 @@ class TodoListDetailView(LayoutMixin, SingleObjectMixin, ListView):
         return ctx
     
 
-class TaskCreateView(LayoutMixin, CreateView):
+class TaskCreateView(CreateView):
     model = Task
     form_class = TaskForm
 
@@ -271,12 +269,11 @@ from django.views.generic.edit import CreateView
 
 from .forms import TaskForm, TodoListForm
 from .models import Task, TodoList
-from layout.views import LayoutMixin
 
 
 # Classes
 # =======
-class TodoListListView(LayoutMixin, ListView):
+class TodoListListView(ListView):
     template_name = "todo_list/todo_lists.html"
     paginate_by = 10
 
@@ -290,7 +287,7 @@ class TodoListListView(LayoutMixin, ListView):
         return ctx
     
 
-class TodoListCreateView(LayoutMixin, CreateView):
+class TodoListCreateView(CreateView):
     model = TodoList
     form_class = TodoListForm
 
