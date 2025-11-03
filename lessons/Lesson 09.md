@@ -9,7 +9,8 @@ page. Our todo list details page should display the name of the todo list, a for
 
 {% block content %}
     <div class="row justify-content-center">
-        <h1 class="col-8">{{ object.name }}</h1>
+        <h1 class="col-7">{{ object.name }}</h1>
+        <a class="col-1 m-2 btn btn-primary" href="">Edit</a>
     </div>
     <br/>
     <div class="row justify-content-center">
