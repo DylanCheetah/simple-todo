@@ -119,3 +119,25 @@ class TodoListDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.request.user.todo_lists.all()
+    
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "todo_list/task_edit.html"
+    model = Task
+    form_class = TaskForm
+
+    def get_queryset(self):
+        return Task.objects.filter(todo_list__user=self.request.user)
+    
+    def get_success_url(self):
+        return reverse("todo-list", args=(self.object.todo_list.pk,))
+    
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+
+    def get_queryset(self):
+        return Task.objects.filter(todo_list__user=self.request.user)
+    
+    def get_success_url(self):
+        return reverse("todo-list", args=(self.object.todo_list.pk,))
