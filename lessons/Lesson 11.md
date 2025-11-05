@@ -241,7 +241,7 @@ We also need to modify `simple_todo/todo_list/templates/todo_list/todo_list.html
 ```
 
 Now if you click one of the tasks on a todo list, you should see this page:
-*screenshot*
+![task edit page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/15-task_edit.png?raw=true)
 
 Next, let's add the ability to delete a task. Modify `simple_todo/todo_list/views.py` like this:
 ```python
