@@ -72,7 +72,7 @@ Now that we have added the ability to edit and delete tasks, we also need to add
 ```
 
 If you visit the details page for a todo list now, it should have a checkbox beside each task:
-*screenshot*
+![task checkboxes](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/16-task_checkboxes.png?raw=true)
 
 However, checking/unchecking them will have no effect at this point. In order for them to mark tasks as complete/incomplete, we will need to implement a simple REST API and add some JavaScript which communicates with the REST API when a task is checked/unchecked. Let's start by implementing a view we can use to check/uncheck a task. Open `simple_todo/todo_list/views.py` and modify it like this:
 ```python
