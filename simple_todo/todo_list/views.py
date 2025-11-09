@@ -1,4 +1,7 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -141,3 +144,32 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     
     def get_success_url(self):
         return reverse("todo-list", args=(self.object.todo_list.pk,))
+    
+
+class TaskCompletionView(SingleObjectMixin, View):
+    model = Task
+
+    def patch(self, request, *args, **kwargs):
+        # Ensure that the user is logged in
+        if not self.request.user.is_authenticated:
+            return HttpResponseForbidden(json.dumps({
+                "error": "User not authenticated."
+            }))
+        
+        # Verify that the content type is application/json
+        if self.request.content_type != "application/json":
+            return HttpResponseBadRequest(json.dumps({
+                "error": "Content type must be application/json."
+            }))
+        
+        # Parse request body
+        payload = json.loads(self.request.body)
+
+        # Update task completion state
+        task = self.get_object()
+        task.completed = payload["completed"]
+        task.save()
+        return HttpResponse(status=204)
+
+    def get_queryset(self):
+        return Task.objects.filter(todo_list__user=self.request.user)

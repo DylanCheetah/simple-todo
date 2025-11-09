@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="{% static 'layout/css/bootstrap.min.css' %}"/>
         <script src="{% static 'layout/js/bootstrap.bundle.min.js' %}"></script>
+        {% block scripts %}
+        {% endblock %}
     </head>
     <body>
         <div class="container-fluid">
