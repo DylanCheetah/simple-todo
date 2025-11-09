@@ -1,4 +1,4 @@
-# Lesson 12: Marking Tasks as Complete/Incomplete
+# Lesson 12: Updating Task Completion
 
 Now that we have added the ability to edit and delete tasks, we also need to add a way to mark tasks as complete/incomplete. To do this we will start by adding a checkbox beside each task. Open `simple_todo/todo_list/templates/todo_list/todo_list.html` and modify it like this:
 ```html

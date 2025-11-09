@@ -49,4 +49,4 @@ simple-todo/
 If the Django project is properly configured, we should see the following page:
 ![django test page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/01-django_test_page.png?raw=true)
 
-The development server will automatically reload your project whenever you make changes to it. Therefore, you can leave the development server running while working on your project. If the development server happens to crash for some reason, stop it by pressing Ctrl+C in its terminal and restart it.
+The development server will automatically reload your project whenever you make changes to it. Therefore, you can leave the development server running while working on your project. If the development server happens to crash for some reason, stop it by pressing Ctrl+C in its terminal and restart it. You will also need to restart the development server whenever you add a `static` folder to a Django app in the project.
