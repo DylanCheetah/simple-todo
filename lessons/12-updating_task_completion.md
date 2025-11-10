@@ -283,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Content-Type": "application/json",
                 "X-CSRFToken": getCookie("csrftoken")
             },
+            credentials: "same-origin",
             body: JSON.stringify({
                 completed: evt.target.checked
             })
@@ -313,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 ```
 
-Our new JavaScript code starts by assigning an event listener for when the page finishes loading. After the page is fully loaded, it will assign an event listener to each task checkbox which will be triggered whenever its state changes. The event listener for each checkbox will send an HTTP PATCH request to the URL placed into the `data-url` attribute of the checkbox. We must set the content type for this request to application/json and send the CSRF token stored in the `csrftoken` cookie. The body of the request will contain JSON indicating if the completion state is true or false. If the response status code is 204, the request succeeded. If it is something else or if a connection error occurs, then the state of the checkbox will be reset to its previous value and an alert will be displayed. The `getCookie` function used to get the value of the `csrftoken` cookie needs to be defined in a new file called `simple_todo/layout/static/layout/js/cookie.js`:
+Our new JavaScript code starts by assigning an event listener for when the page finishes loading. After the page is fully loaded, it will assign an event listener to each task checkbox which will be triggered whenever its state changes. The event listener for each checkbox will send an HTTP PATCH request to the URL placed into the `data-url` attribute of the checkbox. We must set the content type for this request to application/json and send the CSRF token stored in the `csrftoken` cookie. Since some browsers require `credentials` to be set to "same-origin", we will set it for all requests. The body of the request will contain JSON indicating if the completion state is true or false. If the response status code is 204, the request succeeded. If it is something else or if a connection error occurs, then the state of the checkbox will be reset to its previous value and an alert will be displayed. The `getCookie` function used to get the value of the `csrftoken` cookie needs to be defined in a new file called `simple_todo/layout/static/layout/js/cookie.js`:
 ```js
 function getCookie(name) {
     let cookieValue = null;

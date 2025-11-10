@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Content-Type": "application/json",
                 "X-CSRFToken": getCookie("csrftoken")
             },
+            credentials: "same-origin",
             body: JSON.stringify({
                 completed: evt.target.checked
             })
