@@ -1,3 +1,7 @@
+# Lesson 13: Navigation and Logout
+
+As it stands, navigating our todo list web app isn't the most user-friendly. For example, if a user is viewing the details of a todo list or on any other page they must either click the back button or type a new address into the address bar if they wish to return to the homepage. Also, they have no way to log out yet. To address these issues, we will add a navigation bar that's visible at the top of every page. To do this we will need to modify `simple_todo/layout/templates/layout/layout.html` like this:
+```html
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -49,3 +53,6 @@
         </div>
     </body>
 </html>
+```
+
+The new HTML code adds a Bootstrap navbar to the top of the page which will remain stuck to the top of the window even when the user scrolls the page. It has a branding link which shows the name of the app and can be clicked to return to the homepage. When the user is not logged in, it will show Register and Login links on the navbar. When the user is logged in, it will show a Logout link which submits a logout form to our `UserLogoutView`. The web interface for our todo list web app is now complete. In the next lesson, we will start implementing a progressive web app version of our todo list web app.
