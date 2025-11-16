@@ -1,6 +1,6 @@
 # Lesson 01: Prerequisites
 
-In this tutorial series, we will be learning how to develop a todo list application. It will have a backend and web interface powered by Python, Django, and Django REST Framework. It will also have a progressive web app powered by JavaScript. Before we get started, we will need to install Visual Studio Code and Python:
+In this tutorial series, we will be learning how to develop a todo list application. It will have a backend and web interface powered by Python, Django, and JavaScript. We will also explore how we can develop the same application as a progressive web app with a backend made with Django REST Framework. Before we get started, we will need to install Visual Studio Code and Python:
 01. download Visual Studio Code from [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
 02. install Visual Studio Code
 03. start Visual Studio Code
