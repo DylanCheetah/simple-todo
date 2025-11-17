@@ -48,9 +48,9 @@ urlpatterns = [
 ```
 
 Now if you visit [token api docs](http://127.0.0.1:8000/api/v1/token/) in a web browser, you should see this page:
-*screenshot*
+![token api docs](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/17-token_api_docs.png?raw=true)
 
 This page can be used to log in to obtain an access token and a refresh token. You can also obtain them by sending an HTTP POST request to the same URL with a JSON payload containing the username and password. The access token will expire after a while, but you can obtain a new one via [token refresh api docs](http://127.0.0.1:8000/api/v1/token/refresh/):
-*screenshot*
+![token refresh api docs](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/18-token_refresh_api_docs.png?raw=true)
 
 You can also obtain a new access token by sending an HTTP POST request to the same URL with a JSON payload containing the refresh token.
