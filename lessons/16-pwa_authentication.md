@@ -1,4 +1,4 @@
-# Lesson 16: Progressive Web App Authentication
+# Lesson 16: Progressive Web App - Authentication
 
 In order for the user to be able to log in and manage their todo lists our progressive web app will need to be able to authenticate with our REST API. There are actually several ways to do this. We could use session authentication, token authentication, or OAuth2 for example. Since our web interface uses session authentication and OAuth2 is a more complex form of authentication, we will use token authentication for our progressive web app. We will be using `djangorestframework-simplejwt` to handle token authentication for us. Let's start by configuring it. Open `simple_todo/simple_todo/settings.py` and modify your REST framework settings like this:
 ```python

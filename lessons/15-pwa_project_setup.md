@@ -1,4 +1,4 @@
-# Lesson 15: Progressive Web App Project Setup
+# Lesson 15: Progressive Web App - Project Setup
 
 The first thing we need to do to setup our progressive web app is to create a REST API which will allow the frontend to fetch data from the backend. Django REST Framework greatly simplifies creating REST APIs. In order to use it we will first need to configure it though. Start by opening `simple_todo/simple_todo/settings.py` and modifying your list of installed apps like this:
 ```python

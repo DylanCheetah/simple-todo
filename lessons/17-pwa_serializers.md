@@ -1,4 +1,4 @@
-# Lesson 17: Progressive Web App Serializers
+# Lesson 17: Progressive Web App - Serializers
 
 In lesson 3 we created data model classes for our todo list app. We will be using the same data model classes for our progressive web app. To use them with our REST API we will need a way to serialize data to be sent to our progressive web app and deserialize data received by our REST API. Django REST Framework handles this via serializer classes. Let's start by creating serializer classes for our todo list and task data model classes. Create `simple_todo/todo_list_api_v1/serializers.py` with the following content:
 ```python
