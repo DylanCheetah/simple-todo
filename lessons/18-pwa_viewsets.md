@@ -1,3 +1,7 @@
+# Lesson 18: Progressive Web App - Viewsets
+
+In order to define our REST API we will need to create viewset classes. Each viewset class is used to perform CRUD operations on a class of data models. Open `simple_todo/todo_list_api_v1/views.py` and modify it like this:
+```python
 from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
@@ -26,3 +30,6 @@ class TaskViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Task.objects.filter(todo_list__user=self.user)
+```
+
+Each model viewset class must extend either `ModelViewSet` or `ReadOnlyModelViewSet` depending on whether the viewset should be read/write or read-only. The `serializer_class` attribute should be set to the serializer class to use. The `permission_classes` should be a list of permission classes to apply. The `get_queryset` method should return the queryset of data model instances which can be accessed by the viewset.
