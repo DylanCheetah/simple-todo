@@ -12,7 +12,7 @@ from todo_list.models import Task, TodoList
 class TodoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoList
-        fields = ["user", "name"]
+        fields = ["id", "user", "name"]
         extra_kwargs = {
             "user": {"write_only": True}
         }
@@ -21,7 +21,7 @@ class TodoListSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ["todo_list", "name", "due_date", "completed"]
+        fields = ["id", "todo_list", "name", "due_date", "completed"]
 ```
 
 Each serializer class needs to extend `ModelSerializer`. The `model` attribute of the inner `Meta` class determines which data model class will be used for serializing/deserializing data. The `fields` attribute of the inner `Meta` class will determine which fields will be serialized/deserialized. The `extra_kwargs` attribute of the inner `Meta` class can be used to specify additional options for each field.
