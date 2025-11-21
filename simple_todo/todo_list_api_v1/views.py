@@ -25,4 +25,4 @@ class TaskViewSet(ModelViewSet):
     ]
 
     def get_queryset(self):
-        return Task.objects.filter(todo_list__user=self.request.user)
+        return Task.objects.filter(todo_list__user=self.request.user).order_by("name")
