@@ -6,7 +6,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Task
+from todo_list.models import Task
 from .serializers import TaskSerializer, TodoListSerializer
 
 
