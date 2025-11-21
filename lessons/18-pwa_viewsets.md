@@ -29,7 +29,7 @@ class TaskViewSet(ModelViewSet):
     ]
 
     def get_queryset(self):
-        return Task.objects.filter(todo_list__user=self.user)
+        return Task.objects.filter(todo_list__user=self.request.user)
 ```
 
 Each model viewset class must extend either `ModelViewSet` or `ReadOnlyModelViewSet` depending on whether the viewset should be read/write or read-only. The `serializer_class` attribute should be set to the serializer class to use. The `permission_classes` should be a list of permission classes to apply. The `get_queryset` method should return the queryset of data model instances which can be accessed by the viewset.
