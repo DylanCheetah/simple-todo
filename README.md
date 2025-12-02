@@ -1,2 +1,2 @@
 # simple-todo
-A simple todo list with both a web and mobile interface.
+A simple todo list with a website and mobile app.
