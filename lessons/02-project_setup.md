@@ -218,4 +218,4 @@ python manage.py runserver
 ```
 
 If you visit http://127.0.0.1:8000/ in a web browser, you should see a page like this:
-*screenshot*
+![default project homepage](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/01-default_project_homepage.png?raw=true)
