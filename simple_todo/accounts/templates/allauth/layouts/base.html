@@ -1,0 +1,70 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ WEBSITE_NAME }} - {% block head_title %}{% endblock head_title %}</title>
+        <link rel="stylesheet" href="{% static 'layout/css/bootstrap.min.css' %}"/>
+        <script src="{% static 'layout/js/bootstrap.bundle.min.js' %}"></script>
+        {% block extra_head %}
+        {% endblock extra_head %}
+    </head>
+    <body>
+        {% block body %}
+            <div class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">{{ WEBSITE_NAME }}</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% if not user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'account_login' %}">Sign In</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <form action="{% url 'account_logout' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input class="nav-link" type="submit" value="Logout"/>
+                                    </form>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                {% if messages %}
+                    <div class="row justify-content-center">
+                        <div class="col-8 m-2 alert alert-primary">
+                            <strong>{% trans "Messages:" %}</strong>
+                            <ul>
+                                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    <div class="col-8 m-2 card bg-light">
+                        <div class="card-body">
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
+        <div class="row justify-content-center">
+            <div class="col-8 m-2">Copyright (c) {% now 'Y' %} by {{ AUTHOR_NAME }}</div>
+        </div>
+    </body>
+</html>

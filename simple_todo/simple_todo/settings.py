@@ -141,3 +141,14 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend"
 ]
+
+# Allauth form classes
+ACCOUNT_FORMS = {
+    "login": "accounts.forms.LoginForm",
+    "signup": "accounts.forms.SignupForm",
+    "add_email": "accounts.forms.AddEmailForm",
+    "change_password": "accounts.forms.ChangePasswordForm",
+    "set_password": "accounts.forms.SetPasswordForm",
+    "reset_password": "accounts.forms.ResetPasswordForm",
+    "reset_password_from_key": "accounts.forms.ResetPasswordKeyForm"
+}
