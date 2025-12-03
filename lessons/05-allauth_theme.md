@@ -49,7 +49,7 @@ simple-todo/
     requirements.txt
 ```
 
-To change the overall look of every allauth page, modify the `simple-todo/simple_todo/accounts/templates/allauth/layout/base.html` file like this:
+To change the overall look of every allauth page, modify the `simple-todo/simple_todo/accounts/templates/allauth/layouts/base.html` file like this:
 ```html
 {% load i18n %}
 {% load static %}
