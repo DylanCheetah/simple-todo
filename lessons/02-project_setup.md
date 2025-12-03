@@ -55,7 +55,7 @@ DEBUG=on
 SECRET_KEY=key
 
 # Database URL
-DATABASE_URL=sqlite:///db.sqlite
+DATABASE_URL=sqlite:///db.sqlite3
 ```
 
 Now we can create our development environment file. Copy `simple-todo/simple_todo/.env.dist` and name it `.env`. If you're using source control, make sure this file is excluded from source control. To generate a secret key for your development environment, execute the following command:
