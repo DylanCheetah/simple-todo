@@ -198,7 +198,7 @@ To make form controls use Bootstrap styling we will need to modify `simple-todo/
 ```
 
 If you view http://127.0.0.1:8000/accounts/login/ in a web browser now, it should look like this:
-*screenshot*
+![user login theme v1](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/03-user_login_theme_v1.png?raw=true)
 
 If it doesn't, try restarting the development server and refreshing the page. Notice that the page looks much better now, but the form controls don't appear to be using Bootstrap styling. This is because any controls rendered by a form class will need to be modified to use Bootstrap styling. To do this, we will need to override the default allauth form classes. Create `simple-todo/simple_todo/accounts/forms.py` with the following content:
 ```python
@@ -294,4 +294,4 @@ ACCOUNT_FORMS = {
 ```
 
 Now if you view http://127.0.0.1:8000/accounts/login/ you should see this:
-*screenshot*
+![user login theme v2](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/04-user_login_theme_v2.png?raw=true)
