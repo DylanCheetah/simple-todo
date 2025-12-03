@@ -69,9 +69,8 @@ We will be using Bootstrap for the theme of our website. So we will need to inst
         <div class="container-fluid">
             {% block content %}
             {% endblock %}
-            <br/>
             <div class="row justify-content-center">
-                <div class="col-8">Copyright (c) {% now 'Y' %} by {{ AUTHOR_NAME }}</div>
+                <div class="col-8 m-2">Copyright (c) {% now 'Y' %} by {{ AUTHOR_NAME }}</div>
             </div>
         </div>
     </body>
@@ -179,9 +178,8 @@ You should see output like this:
         <div class="container-fluid">
 
 
-            <br/>
             <div class="row justify-content-center">
-                <div class="col-8">Copyright (c) 2025 by DylanCheetah</div>
+                <div class="col-8 m-2">Copyright (c) 2025 by DylanCheetah</div>
             </div>
         </div>
     </body>
