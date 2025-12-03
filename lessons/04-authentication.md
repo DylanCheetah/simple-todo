@@ -104,4 +104,4 @@ python manage.py createsuperuser
 ```
 
 If you visit http://127.0.0.1:8000/accounts/login/ you should see this page:
-*screenshot*
+![default user login](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/02-default_user_login.png?raw=true)
