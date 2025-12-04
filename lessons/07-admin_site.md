@@ -1,6 +1,6 @@
 # Lesson 07: Admin Site
 
-Django provides an admin site which we can use to manage the data model instances for our website. But before we can use it to manage instances of a data model, we must first register each data model class with the admin site. To register your data models, modify `simple-todo/simple_todo/todo_lists/admin.py` like this:
+Django provides an admin site which we can use to manage the data model instances for our website. But before we can use it to manage instances of a data model, we must first register each data model class with the admin site. To register your data models, create model admin classes in `simple-todo/simple_todo/todo_lists/admin.py` like this:
 ```python
 from django.contrib import admin
 
@@ -25,7 +25,7 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ["name", "todo_list__name", "todo_list__user__username"]
 ```
 
-The `list_display` attribute determines which fields will be displayed in each data model list page, the `ordering` attribute determines which field the data model instances will be sorted by, the `autocomplete_fields` attribute can be used to provide a searchable list box for foreign key fields instead of the default dropdown box, and the `search_fields` attribute determines which fields are used when searching for data model instances. We can also set the name of the category displayed for our todo lists app by modifying `simple-todo/simple_todo/todo_lists/apps.py` like this:
+Each model admin class must extend `admin.ModelAdmin`. The `list_display` attribute determines which fields will be displayed in each data model list page, the `ordering` attribute determines which field the data model instances will be sorted by, the `autocomplete_fields` attribute can be used to provide a searchable list box for foreign key fields instead of the default dropdown box, and the `search_fields` attribute determines which fields are used when searching for data model instances. We can also set the name of the category displayed for our todo lists app by modifying `simple-todo/simple_todo/todo_lists/apps.py` like this:
 ```python
 from django.apps import AppConfig
 
