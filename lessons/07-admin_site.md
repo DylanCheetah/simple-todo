@@ -37,24 +37,24 @@ class TodoListsConfig(AppConfig):
 ```
 
 If you visit http://127.0.0.1:8000/admin/ in your web browser, you should see this page:
-*screenshot*
+![admin login](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/05-admin_login.png?raw=true)
 
 Enter the username and password you chose when you created the superuser account and you should see this page:
-*screenshot*
+![admin site homepage](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/06-admin_site_homepage.png?raw=true)
 
 There will be one category for each installed app which has registered data model classes. Each registered data model class will be listed within the category for the app it belongs to. Click the todo lists link and you should see this page:
-*screenshot*
+![empty todo lists admin page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/07-empty_todo_lists_admin_page.png?raw=true)
 
 If you click the Add link beside the todo lists link, you should see this page:
-*screenshot*
+![todo list create form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/08-todo_list_create_form.png?raw=true)
 
 Try adding a few todo lists and you should see something like this on the todo lists page:
-*screenshot*
+![todo lists admin page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/09-todo_lists_admin_page.png?raw=true)
 
 Click the Add link beside the tasks link and you should see this page:
-*screenshot*
+![task create form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/10-task_create_form.png?raw=true)
 
 Now add some tasks to each todo list and you should see something like this on the tasks page:
-*screenshot*
+![tasks admin page](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/11-tasks_admin_page.png?raw=true)
 
 The search box at the top of the todo lists and tasks pages can also be used to search the list of data model instances on each page. You can also click on a data model instance to edit or delete it. The checkboxes on each data model list page can be used to select multiple data model instances in order to perform an action on multiple instances at once.
