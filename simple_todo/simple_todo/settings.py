@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "layout",
     "accounts",
+    "todo_lists",
     "allauth",
     "allauth.account",
     'django.contrib.admin',
