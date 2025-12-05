@@ -289,7 +289,7 @@ The `hx-get` attribute determines what URL to fetch the previous/next page from,
 {% endblock %}
 ```
 
-Next we need to create a view for our homepage. This view will need to be able to serve the full homepage, serve a new page of todo lists, and create a new todo list. To simplify this, we will create a separate view class for each task and then create a view which dispatches each request to the correct view based on the type of request. Open `simple-todo/simple_todo/todo_lists/views.py` and modify it like this:
+Next we need to create a view for our homepage. This view will need to be able to serve the full homepage, serve a new page of todo lists, and create a new todo list. To simplify this, we will create a separate view class for each task and then create a view which dispatches each request to the correct view based on the type of request. For now we will just implement serving the full homepage and a new page of todo lists. Open `simple-todo/simple_todo/todo_lists/views.py` and modify it like this:
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
