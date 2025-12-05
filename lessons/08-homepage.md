@@ -361,4 +361,4 @@ urlpatterns = [
 ```
 
 If you visit http://127.0.0.1:8000/ in your web browser, you will be redirected to the login page if you aren't already logged in. If you are logged in, you will see this page:
-*screenshot*
+![homepage](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/12-homepage.png?raw=true)
