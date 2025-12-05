@@ -13,33 +13,7 @@
     </head>
     <body>
         {% block body %}
-            <div class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">{{ WEBSITE_NAME }}</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            {% if not user.is_authenticated %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_login' %}">Sign In</a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <form action="{% url 'account_logout' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input class="nav-link" type="submit" value="Logout"/>
-                                    </form>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            {% include "layout/navbar.html" %}
             <div class="container-fluid">
                 {% if messages %}
                     <div class="row justify-content-center">

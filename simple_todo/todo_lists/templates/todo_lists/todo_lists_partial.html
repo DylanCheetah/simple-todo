@@ -1,0 +1,38 @@
+<div id="todo_lists-view">
+    {% for todo_list in page_obj %}
+        <div class="row">
+            <div class="col m-1 card bg-light">
+                <div class="card-body row">
+                    <a class="col-10 nav-link" href="">{{ todo_list.name }}</a>
+                    <button class="col-2 btn btn-danger" hx-delete="">Delete</button>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        No Data
+    {% endfor %}
+    <br/>
+    <div class="row justify-content-center">
+        {% if page_obj.has_previous %}
+            <button class="col-2 btn btn-primary"
+                    hx-get="{% url 'todo-lists' %}?page={{ page_obj.previous_page_number }}"
+                    hx-target="#todo_lists-view" 
+                    hx-swap="outerHTML">
+                    Previous
+            </button>
+        {% else %}
+            <button class="col-2 btn btn-secondary pe-none">Previous</button>
+        {% endif %}
+        <div class="col-2">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        {% if page_obj.has_next %}
+            <button class="col-2 btn btn-primary"
+                    hx-get="{% url 'todo-lists' %}?page={{ page_obj.next_page_number }}"
+                    hx-target="#todo_lists-view"
+                    hx-swap="outerHTML">
+                    Next
+            </button>
+        {% else %}
+            <button class="col-2 btn btn-secondary pe-none">Next</button>
+        {% endif %}
+    </div>
+</div>
