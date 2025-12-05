@@ -17,18 +17,26 @@
             <button class="col-2 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.previous_page_number }}"
                     hx-target="#todo_lists-view" 
-                    hx-swap="outerHTML">
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     Previous
             </button>
         {% else %}
             <button class="col-2 btn btn-secondary pe-none">Previous</button>
         {% endif %}
-        <div class="col-2">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
         {% if page_obj.has_next %}
             <button class="col-2 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.next_page_number }}"
                     hx-target="#todo_lists-view"
-                    hx-swap="outerHTML">
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     Next
             </button>
         {% else %}

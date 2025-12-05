@@ -203,11 +203,17 @@ Then create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_f
 <form hx-post="" hx-swap="outerHTML">
     {% csrf_token %}
     {{ form }}
-    <button class="m-1 btn btn-primary">Create</button>
+    <br/>
+    <button class="btn btn-primary">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Create
+    </button>
 </form>
 ```
 
-Since we're using htmx, we will use the `hx-post` attribute to define the URL to submit the form to. For now we will leave it blank so we can test the homepage more easily. The `hx-swap` attribute determines what content on the page will be replaced by the response. In this case, we will replace the entire form with the response. Next we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_lists_partial.html` with the following content:
+Since we're using htmx, we will use the `hx-post` attribute to define the URL to submit the form to. For now we will leave it blank so we can test the homepage more easily. The `hx-swap` attribute determines what content on the page will be replaced by the response. In this case, we will replace the entire form with the response. The progress spinner on the button has the "htmx-indicator" class added so it will only be visible while an AJAX request is in progress for the form containing the button. Next we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_lists_partial.html` with the following content:
 ```html
 <div id="todo_lists-view">
     {% for todo_list in page_obj %}
@@ -228,18 +234,26 @@ Since we're using htmx, we will use the `hx-post` attribute to define the URL to
             <button class="col-2 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.previous_page_number }}"
                     hx-target="#todo_lists-view" 
-                    hx-swap="outerHTML">
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     Previous
             </button>
         {% else %}
             <button class="col-2 btn btn-secondary pe-none">Previous</button>
         {% endif %}
-        <div class="col-2">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
         {% if page_obj.has_next %}
             <button class="col-2 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.next_page_number }}"
                     hx-target="#todo_lists-view"
-                    hx-swap="outerHTML">
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     Next
             </button>
         {% else %}
@@ -249,7 +263,7 @@ Since we're using htmx, we will use the `hx-post` attribute to define the URL to
 </div>
 ```
 
-The `hx-get` attribute determines what URL to fetch the previous/next page from, the `hx-target` attribute determines which element will be modified by the content fetched, and the `hx-swap` attribute determines how the target element will be modified. In this case, we will replace the entire element identified as "todo_lists-view" with the fetched content. Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_lists_full.html` with the following content:
+The `hx-get` attribute determines what URL to fetch the previous/next page from, the `hx-target` attribute determines which element will be modified by the content fetched, and the `hx-swap` attribute determines how the target element will be modified. In this case, we will replace the entire element identified as "todo_lists-view" with the fetched content. The `hx-push-url` attribute is set to "true" in order to push the URL of the fetched content into the browser history. Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_lists_full.html` with the following content:
 ```html
 {% extends "layout/base.html" %}
 
