@@ -101,4 +101,4 @@ Our new `TodoListCreateView` extends `TemplateView`. A template view will automa
 
 We simply fill in the URL to submit the form to and add an alert to be displayed if a duplicate name was
 supplied. Now you will be able to create new todo lists via the todo list form on the homepage. If you try to create a todo list with a duplicate name, you will get a message like this:
-*screenshot*
+![duplicate todo list message](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/13-duplicate_todo_list_message.png?raw=true)
