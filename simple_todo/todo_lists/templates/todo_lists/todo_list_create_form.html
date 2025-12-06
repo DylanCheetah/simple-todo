@@ -1,5 +1,8 @@
-<form hx-post="" hx-swap="outerHTML">
+<form hx-post="{% url 'todo-lists' %}" hx-swap="outerHTML">
     {% csrf_token %}
+    {% if todo_list_create_err %}
+        <div class="alert alert-danger">{{ todo_list_create_err }}</div>
+    {% endif %}
     {{ form }}
     <br/>
     <button class="btn btn-primary">

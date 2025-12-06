@@ -1,3 +1,7 @@
+# Lesson 09: Creating Todo Lists
+
+In order to create todo lists using the form on the homepage of our website we will need to create an additional view and modify our `TodoListView`. Open `simple-todo/simple_todo/todo_lists/views.py` and modify it like this:
+```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
@@ -75,3 +79,26 @@ class TodoListsView(LoginRequiredMixin, View):
         # Dispatch to the todo list create view
         view = TodoListCreateView.as_view()
         return view(request, *args, **kwargs)
+```
+
+Our new `TodoListCreateView` extends `TemplateView`. A template view will automatically render the template referenced by its `template_name` attribute using the context returned by the `get_context_data` method for HTTP GET requests. But in our case, we need to handle an HTTP POST request. Therefore, we will define a `post` method which creates an instance of our todo list form using the HTTP POST data and validates the form. If the form is invalid, the todo list form will be returned to the user to be corrected. If the form is valid, the current user will be associated with the new todo list, the new todo list will be saved, and the user will be redirected to the homepage. The reason why we redirect to the homepage is to ensure that the data displayed is correct. Since we prohibit a user from having multiple todo lists with the same name, we need to handle the `IntegrityError` exception by returning the form to the user to be corrected if the supplied todo list name was a duplicate. We will also add a descriptive error message to the template context if the name was a duplicate. Next, we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` like this:
+```html
+<form hx-post="{% url 'todo-lists' %}" hx-swap="outerHTML">
+    {% csrf_token %}
+    {% if todo_list_create_err %}
+        <div class="alert alert-danger">{{ todo_list_create_err }}</div>
+    {% endif %}
+    {{ form }}
+    <br/>
+    <button class="btn btn-primary">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Create
+    </button>
+</form>
+```
+
+We simply fill in the URL to submit the form to and add an alert to be displayed if a duplicate name was
+supplied. Now you will be able to create new todo lists via the todo list form on the homepage. If you try to create a todo list with a duplicate name, you will get a message like this:
+*screenshot*
