@@ -198,7 +198,7 @@ templates/
     todo_lists/
 ```
 
-Then create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_form.html` with the following content:
+Then create `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` with the following content:
 ```html
 <form hx-post="" hx-swap="outerHTML">
     {% csrf_token %}
@@ -274,7 +274,7 @@ The `hx-get` attribute determines what URL to fetch the previous/next page from,
         <div class="col-8 m-2 card bg-light">
             <div class="card-body">
                 <h3 class="card-title">New Todo List</h3>
-                {% include "todo_lists/todo_list_form.html" %}
+                {% include "todo_lists/todo_list_create_form.html" %}
             </div>
         </div>
     </div>
