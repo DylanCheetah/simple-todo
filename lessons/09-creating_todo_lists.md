@@ -5,7 +5,7 @@ In order to create todo lists using the form on the homepage of our website we w
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, View
 from django_htmx.http import HttpResponseClientRedirect
 
@@ -38,6 +38,7 @@ class TodoListsPartialView(ListView):
 
 class TodoListCreateView(TemplateView):
     template_name = "todo_lists/todo_list_create_form.html"
+    success_url = reverse_lazy("todo-lists")
 
     def post(self, request, *args, **kwargs):
         # Validate the todo list form
@@ -61,7 +62,7 @@ class TodoListCreateView(TemplateView):
             ctx["todo_list_create_err"] = "Duplicate todo list name. Please change the name and try again."
             return render(request, self.template_name, ctx)
 
-        return HttpResponseClientRedirect(reverse("todo-lists"))
+        return HttpResponseClientRedirect(self.success_url)
     
 
 class TodoListsView(LoginRequiredMixin, View):
@@ -81,7 +82,7 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
 ```
 
-Our new `TodoListCreateView` extends `TemplateView`. A template view will automatically render the template referenced by its `template_name` attribute using the context returned by the `get_context_data` method for HTTP GET requests. But in our case, we need to handle an HTTP POST request. Therefore, we will define a `post` method which creates an instance of our todo list form using the HTTP POST data and validates the form. If the form is invalid, the todo list form will be returned to the user to be corrected. If the form is valid, the current user will be associated with the new todo list, the new todo list will be saved, and the user will be redirected to the homepage. The reason why we redirect to the homepage is to ensure that the data displayed is correct. Since we prohibit a user from having multiple todo lists with the same name, we need to handle the `IntegrityError` exception by returning the form to the user to be corrected if the supplied todo list name was a duplicate. We will also add a descriptive error message to the template context if the name was a duplicate. Next, we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` like this:
+Our new `TodoListCreateView` extends `TemplateView`. A template view will automatically render the template referenced by its `template_name` attribute using the context returned by the `get_context_data` method for HTTP GET requests. But in our case, we need to handle an HTTP POST request. Therefore, we will define a `post` method which creates an instance of our todo list form using the HTTP POST data and validates the form. If the form is invalid, the todo list form will be returned to the user to be corrected. If the form is valid, the current user will be associated with the new todo list, the new todo list will be saved, and the user will be redirected to the homepage. We use the `reverse_lazy` function to get the URL of the homepage via its view name and store it in the `success_url` attribute. The reason why we redirect to the homepage is to ensure that the data displayed is correct. Since we prohibit a user from having multiple todo lists with the same name, we need to handle the `IntegrityError` exception by returning the form to the user to be corrected if the supplied todo list name was a duplicate. We will also add a descriptive error message to the template context if the name was a duplicate. Next, we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` like this:
 ```html
 <form hx-post="{% url 'todo-lists' %}" hx-swap="outerHTML">
     {% csrf_token %}

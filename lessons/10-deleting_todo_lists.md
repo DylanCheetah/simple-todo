@@ -5,12 +5,11 @@ In order to delete todo lists we will need to create a new view and map it to a 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, View
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import TodoListForm
-from .models import TodoList
 
 
 # View Classes
@@ -39,6 +38,7 @@ class TodoListsPartialView(ListView):
 
 class TodoListCreateView(TemplateView):
     template_name = "todo_lists/todo_list_create_form.html"
+    success_url = reverse_lazy("todo-lists")
 
     def post(self, request, *args, **kwargs):
         # Validate the todo list form
@@ -62,7 +62,7 @@ class TodoListCreateView(TemplateView):
             ctx["todo_list_create_err"] = "Duplicate todo list name. Please change the name and try again."
             return render(request, self.template_name, ctx)
 
-        return HttpResponseClientRedirect(reverse("todo-lists"))
+        return HttpResponseClientRedirect(self.success_url)
     
 
 class TodoListsView(LoginRequiredMixin, View):
@@ -83,6 +83,8 @@ class TodoListsView(LoginRequiredMixin, View):
     
 
 class TodoListDeleteView(View):
+    success_url = reverse_lazy("todo-lists")
+
     def get_queryset(self):
         return self.request.user.todo_lists.all()
 
@@ -90,7 +92,7 @@ class TodoListDeleteView(View):
         # Delete the requested todo list
         todo_list = get_object_or_404(self.get_queryset(), pk=kwargs["pk"])
         todo_list.delete()
-        return HttpResponseClientRedirect(reverse("todo-lists"))
+        return HttpResponseClientRedirect(self.success_url)
 
 
 class TodoListView(LoginRequiredMixin, View):
