@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, View
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import TodoListForm
+from .models import TodoList
 
 
 # View Classes
@@ -74,4 +75,22 @@ class TodoListsView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         # Dispatch to the todo list create view
         view = TodoListCreateView.as_view()
+        return view(request, *args, **kwargs)
+    
+
+class TodoListDeleteView(View):
+    def get_queryset(self):
+        return self.request.user.todo_lists.all()
+
+    def delete(self, request, *args, **kwargs):
+        # Delete the requested todo list
+        todo_list = get_object_or_404(self.get_queryset(), pk=kwargs["pk"])
+        todo_list.delete()
+        return HttpResponseClientRedirect(reverse("todo-lists"))
+
+
+class TodoListView(LoginRequiredMixin, View):
+    def delete(self, request, *args, **kwargs):
+        # Dispatch to the todo list delete view
+        view = TodoListDeleteView.as_view()
         return view(request, *args, **kwargs)
