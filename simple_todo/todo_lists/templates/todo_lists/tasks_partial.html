@@ -1,11 +1,25 @@
-<div id="todo_lists-view">
-    {% for todo_list in page_obj %}
-        <div class="row">
+<div id="tasks-view">
+    {% for task in page_obj %}
+        <div class="row justify-content-center">
             <div class="col m-1 card bg-light">
                 <div class="card-body row">
-                    <a class="col-10 nav-link" href="{% url 'todo-list' todo_list.pk %}">{{ todo_list.name }}</a>
+                    <div class="col-8 nav-link">{{ task.name }}</div>
+                    <form class="col-2" 
+                          hx-put=""
+                          hx-target="#tasks-view"
+                          hx-swap="outerHTML">
+                          {% csrf_token %}
+                        <button class="col-12 btn btn-warning">
+                            <div class="spinner-border spinner-border-sm htmx-indicator">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            Edit
+                        </button>
+                    </form>
                     <form class="col-2"
-                          hx-delete="{% url 'todo-list' todo_list.pk %}"
+                          hx-delete=""
+                          hx-target="#tasks-view"
+                          hx-swap="outerHTML"
                           hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
                         <button class="col-12 btn btn-danger">
                             <div class="spinner-border spinner-border-sm htmx-indicator">
@@ -24,11 +38,11 @@
     <div class="row justify-content-center">
         {% if page_obj.has_previous %}
             <button class="col-2 btn btn-primary"
-                    hx-get="{% url 'todo-lists' %}?page={{ page_obj.previous_page_number }}"
-                    hx-target="#todo_lists-view" 
+                    hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.previous_page_number }}"
+                    hx-target="#tasks-view"
                     hx-swap="outerHTML"
                     hx-push-url="true">
-                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                    <div class="spinner-border spinner-border-sm htmx-indicator">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     Previous
@@ -39,14 +53,14 @@
         <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
         {% if page_obj.has_next %}
             <button class="col-2 btn btn-primary"
-                    hx-get="{% url 'todo-lists' %}?page={{ page_obj.next_page_number }}"
-                    hx-target="#todo_lists-view"
+                    hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.next_page_number }}"
+                    hx-target="#tasks-view"
                     hx-swap="outerHTML"
                     hx-push-url="true">
-                    <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    Next
+                <div class="spinner-border spinner-border-sm htmx-indicator">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                Next
             </button>
         {% else %}
             <button class="col-2 btn btn-secondary pe-none">Next</button>

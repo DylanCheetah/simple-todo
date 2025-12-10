@@ -1,0 +1,14 @@
+<form hx-post="" hx-swap="outerHTML">
+    {% csrf_token %}
+    {% if task_create_err %}
+        <div class="alert alert-danger">{{ task_create_err }}</div>
+    {% endif %}
+    {{ form }}
+    <br/>
+    <button class="btn btn-primary">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Create
+    </button>
+</form>

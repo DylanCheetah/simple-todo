@@ -3,9 +3,10 @@ from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, View
+from django.views.generic.detail import SingleObjectMixin
 from django_htmx.http import HttpResponseClientRedirect
 
-from .forms import TodoListForm
+from .forms import TaskForm, TodoListForm
 
 
 # View Classes
@@ -78,6 +79,51 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
+class TodoListFullView(SingleObjectMixin, ListView):
+    template_name = "todo_lists/todo_list_full.html"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        # Store the referenced object and return the value returned by the
+        # base method
+        self.object = self.get_object(
+            queryset=self.request.user.todo_lists.all()
+        )
+        return super().get(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        return self.object.tasks.order_by("name")
+    
+    def get_context_data(self, **kwargs):
+        # Add the todo list and task form to the template context
+        ctx = super().get_context_data(**kwargs)
+        ctx["todo_list"] = self.object
+        ctx["form"] = TaskForm()
+        return ctx
+    
+
+class TaskPartialView(SingleObjectMixin, ListView):
+    template_name = "todo_lists/tasks_partial.html"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        # Store the referenced object and return the value returned by the
+        # base method
+        self.object = self.get_object(
+            queryset=self.request.user.todo_lists.all()
+        )
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.object.tasks.order_by("name")
+    
+    def get_context_data(self, **kwargs):
+        # Add the todo list to the template context
+        ctx = super().get_context_data(**kwargs)
+        ctx["todo_list"] = self.object
+        return ctx
+    
+
 class TodoListDeleteView(View):
     success_url = reverse_lazy("todo-lists")
 
@@ -92,6 +138,16 @@ class TodoListDeleteView(View):
 
 
 class TodoListView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        # Render partial content?
+        if request.htmx:
+            view = TaskPartialView.as_view()
+
+        else:
+            view = TodoListFullView.as_view()
+
+        return view(request, *args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         # Dispatch to the todo list delete view
         view = TodoListDeleteView.as_view()

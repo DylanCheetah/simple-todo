@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import TodoList
+from .models import Task, TodoList
 
 
 # Form Classes
@@ -11,4 +11,14 @@ class TodoListForm(forms.ModelForm):
         fields = ["name"]
         widgets = {
             "name": forms.TextInput({"class": "form-control"})
+        }
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ["name", "due_date"]
+        widgets = {
+            "name": forms.TextInput({"class": "form-control"}),
+            "due_date": forms.DateTimeInput({"class": "form-control", "type": "datetime-local"})
         }
