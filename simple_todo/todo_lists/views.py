@@ -93,7 +93,7 @@ class TodoListFullView(SingleObjectMixin, ListView):
         return ctx
     
 
-class TaskPartialView(SingleObjectMixin, ListView):
+class TasksPartialView(SingleObjectMixin, ListView):
     template_name = "todo_lists/tasks_partial.html"
     paginate_by = 10
 
@@ -131,7 +131,7 @@ class TodoListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Render partial content?
         if request.htmx:
-            view = TaskPartialView.as_view()
+            view = TasksPartialView.as_view()
 
         else:
             view = TodoListFullView.as_view()
