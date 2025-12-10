@@ -412,4 +412,4 @@ Next we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists_
 ```
 
 If you click one of the todo lists on the homepage, you should see a page like this now:
-*screenshot*
+![todo list details](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/14-todo_list_details.png?raw=true)
