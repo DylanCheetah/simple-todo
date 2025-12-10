@@ -4,12 +4,13 @@ In order to delete todo lists we will need to create a new view and map it to a 
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, View
+from django.views.generic import CreateView, DeleteView, ListView, View
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import TodoListForm
+from .models import TodoList
 
 
 # View Classes
@@ -36,33 +37,23 @@ class TodoListsPartialView(ListView):
         return self.request.user.todo_lists.order_by("name")
     
 
-class TodoListCreateView(TemplateView):
+class TodoListCreateView(CreateView):
     template_name = "todo_lists/todo_list_create_form.html"
+    model = TodoList
+    form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
 
-    def post(self, request, *args, **kwargs):
-        # Validate the todo list form
-        form = TodoListForm(request.POST)
-
-        if not form.is_valid():
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            return render(request, self.template_name, ctx)
-        
-        # Save the new todo list
+    def form_valid(self, form):
+        # Associate the new todo list with the current user and try to save the
+        # new todo list
         try:
-            form.instance.user = request.user
-            form.save()
-
+            form.instance.user = self.request.user
+            super().form_valid(form)
+            return HttpResponseClientRedirect(self.get_success_url())
+        
         except IntegrityError:
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            ctx["todo_list_create_err"] = "Duplicate todo list name. Please change the name and try again."
-            return render(request, self.template_name, ctx)
-
-        return HttpResponseClientRedirect(self.success_url)
+            form.add_error("name", "Duplicate todo list name.")
+            return self.form_invalid(form)
     
 
 class TodoListsView(LoginRequiredMixin, View):
@@ -82,17 +73,16 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
     
 
-class TodoListDeleteView(View):
+class TodoListDeleteView(DeleteView):
     success_url = reverse_lazy("todo-lists")
 
     def get_queryset(self):
         return self.request.user.todo_lists.all()
-
+    
     def delete(self, request, *args, **kwargs):
-        # Delete the requested todo list
-        todo_list = get_object_or_404(self.get_queryset(), pk=kwargs["pk"])
-        todo_list.delete()
-        return HttpResponseClientRedirect(self.success_url)
+        # Delete the todo list and redirect to the homepage
+        super().delete(request, *args, **kwargs)
+        return HttpResponseClientRedirect(self.get_success_url())
 
 
 class TodoListView(LoginRequiredMixin, View):
@@ -102,7 +92,7 @@ class TodoListView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
 ```
 
-The `get_object_or_404` function accepts a queryset and the same arguments as the `get` method of the `objects` attribute of a data model class. If the requested data model instance isn't found, it will raise an `Http404` exception. If the requested todo list is found, its `delete` method will be called to delete it. Next we need to map our new view to a URL. Open `simple-todo/simple_todo/todo_lists/urls.py` and modify it like this:
+The `TodoListDeleteView` extends `DeleteView`. The `success_url` attribute determines what URL to redirect to after deleting the todo list. The `get_queryset` method returns a queryset which determines which todo lists can be deleted by the current user. We override the `delete` method so we can return an `HttpResponseClientRedirect` object just like we did for our todo list create view. Open `simple-todo/simple_todo/todo_lists/urls.py` and modify it like this:
 ```python
 from django.urls import path
 

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView, View
+from django.views.generic import CreateView, DeleteView, ListView, View
 from django.views.generic.detail import SingleObjectMixin
 from django_htmx.http import HttpResponseClientRedirect
 
@@ -115,17 +115,16 @@ class TaskPartialView(SingleObjectMixin, ListView):
         return ctx
     
 
-class TodoListDeleteView(View):
+class TodoListDeleteView(DeleteView):
     success_url = reverse_lazy("todo-lists")
 
     def get_queryset(self):
         return self.request.user.todo_lists.all()
-
+    
     def delete(self, request, *args, **kwargs):
-        # Delete the requested todo list
-        todo_list = get_object_or_404(self.get_queryset(), pk=kwargs["pk"])
-        todo_list.delete()
-        return HttpResponseClientRedirect(self.success_url)
+        # Delete the todo list and redirect to the homepage
+        super().delete(request, *args, **kwargs)
+        return HttpResponseClientRedirect(self.get_success_url())
 
 
 class TodoListView(LoginRequiredMixin, View):
