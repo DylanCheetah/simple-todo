@@ -2,11 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, View
+from django.views.generic import CreateView, ListView, TemplateView, View
 from django.views.generic.detail import SingleObjectMixin
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import TaskForm, TodoListForm
+from .models import TodoList
 
 
 # View Classes
@@ -33,33 +34,23 @@ class TodoListsPartialView(ListView):
         return self.request.user.todo_lists.order_by("name")
     
 
-class TodoListCreateView(TemplateView):
+class TodoListCreateView(CreateView):
     template_name = "todo_lists/todo_list_create_form.html"
+    model = TodoList
+    form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
 
-    def post(self, request, *args, **kwargs):
-        # Validate the todo list form
-        form = TodoListForm(request.POST)
-
-        if not form.is_valid():
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            return render(request, self.template_name, ctx)
-        
-        # Save the new todo list
+    def form_valid(self, form):
+        # Associate the new todo list with the current user and try to save the
+        # new todo list
         try:
-            form.instance.user = request.user
-            form.save()
-
+            form.instance.user = self.request.user
+            super().form_valid(form)
+            return HttpResponseClientRedirect(self.get_success_url())
+        
         except IntegrityError:
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            ctx["todo_list_create_err"] = "Duplicate todo list name. Please change the name and try again."
-            return render(request, self.template_name, ctx)
-
-        return HttpResponseClientRedirect(self.success_url)
+            form.add_error("name", "Duplicate todo list name.")
+            return self.form_invalid(form)
     
 
 class TodoListsView(LoginRequiredMixin, View):

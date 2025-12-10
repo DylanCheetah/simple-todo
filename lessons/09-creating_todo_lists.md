@@ -6,10 +6,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, View
+from django.views.generic import CreateView, ListView, View
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import TodoListForm
+from .models import TodoList
 
 
 # View Classes
@@ -36,33 +37,23 @@ class TodoListsPartialView(ListView):
         return self.request.user.todo_lists.order_by("name")
     
 
-class TodoListCreateView(TemplateView):
+class TodoListCreateView(CreateView):
     template_name = "todo_lists/todo_list_create_form.html"
+    model = TodoList
+    form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
 
-    def post(self, request, *args, **kwargs):
-        # Validate the todo list form
-        form = TodoListForm(request.POST)
-
-        if not form.is_valid():
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            return render(request, self.template_name, ctx)
-        
-        # Save the new todo list
+    def form_valid(self, form):
+        # Associate the new todo list with the current user and try to save the
+        # new todo list
         try:
-            form.instance.user = request.user
-            form.save()
-
+            form.instance.user = self.request.user
+            super().form_valid(form)
+            return HttpResponseClientRedirect(self.get_success_url())
+        
         except IntegrityError:
-            # Return the form to be corrected
-            ctx = self.get_context_data()
-            ctx["form"] = form
-            ctx["todo_list_create_err"] = "Duplicate todo list name. Please change the name and try again."
-            return render(request, self.template_name, ctx)
-
-        return HttpResponseClientRedirect(self.success_url)
+            form.add_error("name", "Duplicate todo list name.")
+            return self.form_invalid(form)
     
 
 class TodoListsView(LoginRequiredMixin, View):
@@ -82,13 +73,10 @@ class TodoListsView(LoginRequiredMixin, View):
         return view(request, *args, **kwargs)
 ```
 
-Our new `TodoListCreateView` extends `TemplateView`. A template view will automatically render the template referenced by its `template_name` attribute using the context returned by the `get_context_data` method for HTTP GET requests. But in our case, we need to handle an HTTP POST request. Therefore, we will define a `post` method which creates an instance of our todo list form using the HTTP POST data and validates the form. If the form is invalid, the todo list form will be returned to the user to be corrected. If the form is valid, the current user will be associated with the new todo list, the new todo list will be saved, and the user will be redirected to the homepage. We use the `reverse_lazy` function to get the URL of the homepage via its view name and store it in the `success_url` attribute. The reason why we redirect to the homepage is to ensure that the data displayed is correct. Since we prohibit a user from having multiple todo lists with the same name, we need to handle the `IntegrityError` exception by returning the form to the user to be corrected if the supplied todo list name was a duplicate. We will also add a descriptive error message to the template context if the name was a duplicate. Next, we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` like this:
+Our new `TodoListCreateView` extends `CreateView`. It uses submitted form data to create a new todo list. The `template_name` attribute determines the template to render to display the todo list form. The `model` attribute determines the data model class which will be used to create a new data model instance. The `form_class` attribute determines which form class will be used. The `success_url` attribute determines what URL to redirect to on success. We override the `form_valid` method in order to associate the new todo list with the current user before saving it by calling the base `form_valid` method. The base `form_valid` method returns an `HttpResponseRedirect` object, but since we're using htmx we must instead return an `HttpResponseClientRedirect` object. This will redirect to the homepage in order to reload it instead of replacing the form with the response. If we supply a duplicate todo list name an `IntegrityError` exception will be raised. We handle this exception by setting the error message for the name field to indicate that the todo list name was a duplicate and return the value returned by the `form_invalid` method. Next, we need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_create_form.html` like this:
 ```html
 <form hx-post="{% url 'todo-lists' %}" hx-swap="outerHTML">
     {% csrf_token %}
-    {% if todo_list_create_err %}
-        <div class="alert alert-danger">{{ todo_list_create_err }}</div>
-    {% endif %}
     {{ form }}
     <br/>
     <button class="btn btn-primary">
