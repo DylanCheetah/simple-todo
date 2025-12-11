@@ -254,10 +254,10 @@ We also need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/
 ```
 
 If we click the edit button beside the name on a todo list detail page, we should see this form appear now:
-*screenshot*
+![todo list update form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/15-todo_list_update_form.png?raw=true)
 
 Clicking the cancel button will hide the form. However, clicking the save button will result in an error:
-*screenshot*
+![todo list missing name](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/16-todo_list_missing_name.png?raw=true)
 
 This error may seem odd at first since it occurs even if we have a name in the name field before submitting the form. The reason why we get this error is because Django does not parse form data submitted via HTTP PUT requests by default. One way to fix this is to instead use an HTTP POST request. Another way to fix this is to parse the form data ourselves. To do this we can create our own middleware and add it to the top of the list of installed middleware. Create `simple-todo/simple_todo/layout/middleware.py` with the following content:
 ```python
