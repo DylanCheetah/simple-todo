@@ -1,8 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, View
+from django.urls import reverse, reverse_lazy
+from django.views.generic import (
+    CreateView, 
+    DeleteView, 
+    DetailView, 
+    ListView, 
+    UpdateView, 
+    View
+)
 from django.views.generic.detail import SingleObjectMixin
 from django_htmx.http import HttpResponseClientRedirect
 
@@ -115,6 +122,40 @@ class TasksPartialView(SingleObjectMixin, ListView):
         return ctx
     
 
+class TodoListUpdateView(UpdateView):
+    template_name = "todo_lists/todo_list_update_form.html"
+    context_object_name = "todo_list"
+    model = TodoList
+    form_class = TodoListForm
+
+    def get_queryset(self):
+        return self.request.user.todo_lists.all()
+
+    def get_success_url(self):
+        return reverse("todo-list-info", args=(self.kwargs["pk"],))
+
+    def form_valid(self, form):
+        # Try to update the todo list
+        try:
+            return super().form_valid(form)
+        
+        except IntegrityError:
+            form.add_error("name", "Duplicate todo list name.")
+            return self.form_invalid(form)
+        
+
+class TodoListInfoView(DetailView):
+    template_name = "todo_lists/todo_list_info.html"
+    context_object_name = "todo_list"
+    
+    def get_queryset(self):
+        return self.request.user.todo_lists.all()
+    
+    def put(self, request, *args, **kwargs):
+        # Redirect HTTP PUT requests to GET
+        return self.get(request, *args, **kwargs)
+
+
 class TodoListDeleteView(DeleteView):
     success_url = reverse_lazy("todo-lists")
 
@@ -136,6 +177,11 @@ class TodoListView(LoginRequiredMixin, View):
         else:
             view = TodoListFullView.as_view()
 
+        return view(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        # Dispatch to the todo list update view
+        view = TodoListUpdateView.as_view()
         return view(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
