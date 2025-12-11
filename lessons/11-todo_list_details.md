@@ -24,8 +24,8 @@ This template will simply display the name of a todo list as a heading and an ed
     <form class="col-8"
           hx-put=""
           hx-target="#todo_list-update-form"
-          hx-swap="outerHTML">
-          {% csrf_token %}
+          hx-swap="outerHTML"
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
           {{ form }}
         <br/>
         <button class="m-1 btn btn-success">
@@ -48,7 +48,7 @@ This template will simply display the name of a todo list as a heading and an ed
 </div>
 ```
 
-This form will be displayed after clicking the edit button beside the todo list name. We can use the same form class for our create and update forms, but we do need to create a form class for our task create form. Open `simple-todo/simple_todo/todo_lists/forms.py` and modify it like this:
+This form will be displayed after clicking the edit button beside the todo list name. Since we are using an HTTP PUT request to submit the form, we must pass the CSRF token in the "X-CSRFToken" header. We can use the same form class for our create and update forms, but we do need to create a form class for our task create form. Open `simple-todo/simple_todo/todo_lists/forms.py` and modify it like this:
 ```python
 from django import forms
 
