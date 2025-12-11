@@ -150,10 +150,6 @@ class TodoListInfoView(DetailView):
     
     def get_queryset(self):
         return self.request.user.todo_lists.all()
-    
-    def put(self, request, *args, **kwargs):
-        # Redirect HTTP PUT requests to GET
-        return self.get(request, *args, **kwargs)
 
 
 class TodoListDeleteView(DeleteView):
@@ -179,7 +175,7 @@ class TodoListView(LoginRequiredMixin, View):
 
         return view(request, *args, **kwargs)
     
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         # Dispatch to the todo list update view
         view = TodoListUpdateView.as_view()
         return view(request, *args, **kwargs)

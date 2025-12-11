@@ -22,10 +22,10 @@ This template will simply display the name of a todo list as a heading and an ed
 ```html
 <div id="todo_list-update-form" class="row justify-content-center">
     <form class="col-8"
-          hx-put=""
+          hx-post=""
           hx-target="#todo_list-update-form"
-          hx-swap="outerHTML"
-          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+          hx-swap="outerHTML">
+          {% csrf_token %}
           {{ form }}
         <br/>
         <button class="m-1 btn btn-success">
