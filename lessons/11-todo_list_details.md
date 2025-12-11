@@ -31,8 +31,8 @@ This template will simply display the name of a todo list as a heading and an ed
         <button class="m-1 btn btn-success">
             <div class="spinner-border spinner-border-sm htmx-indicator">
                 <span class="visually-hidden">Loading...</span>
-                Save
             </div>
+            Save
         </button>
         <button class="m-1 btn btn-danger"
                 type="button"
@@ -41,8 +41,8 @@ This template will simply display the name of a todo list as a heading and an ed
                 hx-swap="outerHTML">
             <div class="spinner-border spinner-border-sm htmx-indicator">
                 <span class="visually-hidden">Loading...</span>
-                Cancel
             </div>
+            Cancel
         </button>
     </form>
 </div>
