@@ -1,3 +1,7 @@
+# Lesson 13: Creating Tasks
+
+The next feature we need to implement is the ability to create new tasks on a todo list. We already created the form we will need, but we still need to create the view which will handle creating new tasks and map it to a URL. Open `simple-todo/simple_todo/todo_lists/views.py` and modify it like this:
+```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
@@ -215,3 +219,37 @@ class TaskCreateView(CreateView):
         except IntegrityError:
             form.add_error("name", "Duplicate task name.")
             return self.form_invalid(form)
+```
+
+In our new `TaskCreateView` the success URL needs to be dynamically generated so it refers to the todo list which we are adding a task to. The `get_success_url` method can be overridden for this purpose. We override the `get_context_data` method to add the referenced todo list to the template context. We can pass the primary key of the todo list via the `pk` URL parameter. The new task also needs to be associated with the todo list we are adding it to. This will allow us to get the correct todo list by calling the `get_object` method of our new view with a queryset containing the todo lists which belong to the current user. The rest of our new view is similar to our `TodoListCreateView`. Now we need to associate our new view with a URL. Open `simple-todo/simple_todo/todo_lists/urls.py` and modify it like this:
+```python
+from django.urls import path
+
+from . import views
+
+
+urlpatterns = [
+    path("", views.TodoListsView.as_view(), name="todo-lists"),
+    path("todo_lists/<int:pk>/", views.TodoListView.as_view(), name="todo-list"),
+    path("todo_lists/<int:pk>/edit/", views.TodoListUpdateView.as_view(), name="todo-list-edit"),
+    path("todo_lists/<int:pk>/info/", views.TodoListInfoView.as_view(), name="todo-list-info"),
+    path("todo_lists/<int:pk>/create_task/", views.TaskCreateView.as_view(), name="todo-list-create-task")
+]
+```
+
+We also need to modify `simple-todo/simple_todo/todo_lists/templates/todo_lists/task_create_form.html` like this:
+```html
+<form hx-post="{% url 'todo-list-create-task' todo_list.pk %}" hx-swap="outerHTML">
+    {% csrf_token %}
+    {{ form }}
+    <br/>
+    <button class="btn btn-primary">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Create
+    </button>
+</form>
+```
+
+Now we should be able to use the new task form on the details page for a todo list to add a new task to the todo list.

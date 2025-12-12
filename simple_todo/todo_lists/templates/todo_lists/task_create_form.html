@@ -1,4 +1,4 @@
-<form hx-post="" hx-swap="outerHTML">
+<form hx-post="{% url 'todo-list-create-task' todo_list.pk %}" hx-swap="outerHTML">
     {% csrf_token %}
     {{ form }}
     <br/>
