@@ -5,8 +5,8 @@ from . import views
 
 urlpatterns = [
     path("", views.TodoListsView.as_view(), name="todo-lists"),
-    path("todo_lists/<int:pk>/", views.TodoListView.as_view(), name="todo-list"),
-    path("todo_lists/<int:pk>/edit/", views.TodoListUpdateView.as_view(), name="todo-list-edit"),
-    path("todo_lists/<int:pk>/info/", views.TodoListInfoView.as_view(), name="todo-list-info"),
-    path("todo_lists/<int:pk>/create_task/", views.TaskCreateView.as_view(), name="todo-list-create-task")
+    path("todo-lists/<int:pk>/", views.TodoListView.as_view(), name="todo-list"),
+    path("todo-lists/<int:pk>/edit/", views.TodoListUpdateView.as_view(), name="todo-list-edit"),
+    path("todo-lists/<int:pk>/info/", views.TodoListInfoView.as_view(), name="todo-list-info"),
+    path("todo-lists/<int:pk>/create-task/", views.TaskCreateView.as_view(), name="todo-list-create-task")
 ]
