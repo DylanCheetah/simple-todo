@@ -381,6 +381,6 @@ urlpatterns = [
 ```
 
 Now if you click the edit button beside any task on a todo list you will see a form like this:
-*screenshot*
+![task update form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/16-task_update_form.png?raw=true)
 
 Clicking the save button will save any changes made to the task and clicking the cancel button will discard any changes. Afterwards, the info for the task will be displayed again.
