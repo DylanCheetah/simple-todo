@@ -1,0 +1,25 @@
+<form id="task-{{ task.pk }}"
+      class="card-body"
+      hx-post="{% url 'task-edit' task.pk %}"
+      hx-target="#task-{{ task.pk }}",
+      hx-swap="outerHTML">
+    {% csrf_token %}
+    {{ form }}
+    <br/>
+    <button class="m-1 btn btn-success">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Save
+    </button>
+    <button class="m-1 btn btn-danger"
+            type="button"
+            hx-get="{% url 'task-info' task.pk %}"
+            hx-target="#task-{{ task.pk }}"
+            hx-swap="outerHTML">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Cancel
+    </button>
+</form>

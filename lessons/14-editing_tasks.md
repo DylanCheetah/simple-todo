@@ -1,3 +1,119 @@
+# Lesson 14: Editing Tasks
+
+In order to edit tasks on a todo list we will need a new form template and a new update view. We will also need a new detail view which serves the info for a single task on a todo list. Create `simple-todo/simple_todo/todo_lists/templates/todo_lists/task_update_form.html` with the following content:
+```html
+<form id="task-{{ task.pk }}"
+      class="card-body row"
+      hx-post="{% url 'task-edit' task.pk %}"
+      hx-target="#task-{{ task.pk }}",
+      hx-swap="outerHTML">
+      {% csrf_token %}
+      {{ form }}
+    <button class="btn btn-success">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Save
+    </button>
+    <button class="btn btn-danger"
+            type="button"
+            hx-get="{% url 'task-info' task.pk %}"
+            hx-target="#task-{{ task.pk }}"
+            hx-swap="outerHTML">
+        <div class="spinner-border spinner-border-sm htmx-indicator">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Cancel
+    </button>
+</form>
+```
+
+Next we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/task_info.html` with the following content:
+```html
+<div id="task-{{ task.pk }}" class="card-body row">
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12">{{ task.name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-secondary">{{ task.due_date }}</div>
+        </div>
+    </div>
+    <div class="col-2">
+        <button class="col-12 btn btn-warning"
+                hx-get="{% url 'task-edit' task.pk %}"
+                hx-target="#task-{{ task.pk }}"
+                hx-swap="outerHTML">
+            <div class="spinner-border spinner-border-sm htmx-indicator">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            Edit
+        </button>
+    </div>
+    <form class="col-2"
+            hx-delete=""
+            hx-target="#tasks-view"
+            hx-swap="outerHTML"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        <button class="col-12 btn btn-danger">
+            <div class="spinner-border spinner-border-sm htmx-indicator">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            Delete
+        </button>
+    </form>
+</div>
+```
+
+Since the template for the task info is identical to the code for each task in our partial tasks template, we can simply `simple-todo/simple_todo/todo_lists/templates/todo_lists/tasks_partial.html` like this:
+```html
+<div id="tasks-view">
+    {% for task in page_obj %}
+        <div class="row justify-content-center">
+            <div class="col m-1 card bg-light">
+                {% include "todo_lists/task_info.html" %}
+            </div>
+        </div>
+    {% empty %}
+        No Data
+    {% endfor %}
+    <br/>
+    <div class="row justify-content-center">
+        {% if page_obj.has_previous %}
+            <button class="col-2 btn btn-primary"
+                    hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.previous_page_number }}"
+                    hx-target="#tasks-view"
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                    <div class="spinner-border spinner-border-sm htmx-indicator">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    Previous
+            </button>
+        {% else %}
+            <button class="col-2 btn btn-secondary pe-none">Previous</button>
+        {% endif %}
+        <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        {% if page_obj.has_next %}
+            <button class="col-2 btn btn-primary"
+                    hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.next_page_number }}"
+                    hx-target="#tasks-view"
+                    hx-swap="outerHTML"
+                    hx-push-url="true">
+                <div class="spinner-border spinner-border-sm htmx-indicator">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                Next
+            </button>
+        {% else %}
+            <button class="col-2 btn btn-secondary pe-none">Next</button>
+        {% endif %}
+    </div>
+</div>
+```
+
+Now we can create our new views in `simple-todo/simple_todo/todo_lists/views.py` like this:
+```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.shortcuts import render
@@ -244,3 +360,27 @@ class TaskInfoView(DetailView):
 
     def get_queryset(self):
         return Task.objects.filter(todo_list__user=self.request.user)
+```
+
+Next we need to map our new views to URLs. Open `simple-todo/simple_todo/todo_lists/urls.py` and modify it like this:
+```python
+from django.urls import path
+
+from . import views
+
+
+urlpatterns = [
+    path("", views.TodoListsView.as_view(), name="todo-lists"),
+    path("todo-lists/<int:pk>/", views.TodoListView.as_view(), name="todo-list"),
+    path("todo-lists/<int:pk>/edit/", views.TodoListUpdateView.as_view(), name="todo-list-edit"),
+    path("todo-lists/<int:pk>/info/", views.TodoListInfoView.as_view(), name="todo-list-info"),
+    path("todo-lists/<int:pk>/create-task/", views.TaskCreateView.as_view(), name="todo-list-create-task"),
+    path("tasks/<int:pk>/edit/", views.TaskUpdateView.as_view(), name="task-edit"),
+    path("tasks/<int:pk>/info/", views.TaskInfoView.as_view(), name="task-info")
+]
+```
+
+Now if you click the edit button beside any task on a todo list you will see a form like this:
+*screenshot*
+
+Clicking the save button will save any changes made to the task and clicking the cancel button will discard any changes. Afterwards, the info for the task will be displayed again.
