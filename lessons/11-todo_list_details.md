@@ -97,7 +97,7 @@ Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/t
     {% for task in page_obj %}
         <div class="row justify-content-center">
             <div class="col m-1 card bg-light">
-                <div id="todo_list-{{ task.pk }}" class="card-body row">
+                <div id="task-{{ task.pk }}" class="card-body row">
                     <div class="col-8">
                         <div class="row">
                             <div class="col-12">{{ task.name }}</div>
@@ -109,7 +109,7 @@ Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/t
                     <div class="col-2">
                         <button class="col-12 btn btn-warning"
                                 hx-get=""
-                                hx-target="#todo_list-{{ todo_list.pk }}"
+                                hx-target="#task-{{ todo_list.pk }}"
                                 hx-swap="outerHTML">
                             <div class="spinner-border spinner-border-sm htmx-indicator">
                                 <span class="visually-hidden">Loading...</span>
