@@ -19,7 +19,7 @@
         </button>
     </div>
     <form class="col-2"
-            hx-delete=""
+            hx-delete="{% url 'task' task.pk %}"
             hx-target="#tasks-view"
             hx-swap="outerHTML"
             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
