@@ -98,7 +98,14 @@ Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/t
         <div class="row justify-content-center">
             <div class="col m-1 card bg-light">
                 <div id="todo_list-{{ task.pk }}" class="card-body row">
-                    <div class="col-8 nav-link">{{ task.name }}</div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">{{ task.name }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-secondary">{{ task.due_date }}</div>
+                        </div>
+                    </div>
                     <div class="col-2">
                         <button class="col-12 btn btn-warning"
                                 hx-get=""
