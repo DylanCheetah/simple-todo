@@ -109,7 +109,7 @@ Now we need to create `simple-todo/simple_todo/todo_lists/templates/todo_lists/t
                     <div class="col-2">
                         <button class="col-12 btn btn-warning"
                                 hx-get=""
-                                hx-target="#task-{{ todo_list.pk }}"
+                                hx-target="#task-{{ task.pk }}"
                                 hx-swap="outerHTML">
                             <div class="spinner-border spinner-border-sm htmx-indicator">
                                 <span class="visually-hidden">Loading...</span>
