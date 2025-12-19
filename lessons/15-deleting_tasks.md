@@ -47,7 +47,6 @@ class TodoListsPartialView(ListView):
 
 class TodoListCreateView(CreateView):
     template_name = "todo_lists/todo_list_create_form.html"
-    model = TodoList
     form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
 
@@ -129,7 +128,6 @@ class TasksPartialView(SingleObjectMixin, ListView):
 class TodoListUpdateView(UpdateView):
     template_name = "todo_lists/todo_list_update_form.html"
     context_object_name = "todo_list"
-    model = TodoList
     form_class = TodoListForm
 
     def get_queryset(self):
@@ -192,7 +190,6 @@ class TodoListView(LoginRequiredMixin, View):
 
 class TaskCreateView(CreateView):
     template_name = "todo_lists/task_create_form.html"
-    model = Task
     form_class = TaskForm
 
     def get_success_url(self):
@@ -238,7 +235,6 @@ class TaskDeleteView(DeleteView):
 class TaskUpdateView(UpdateView):
     template_name = "todo_lists/task_update_form.html"
     context_object_name = "task"
-    model = Task
     form_class = TaskForm
     
     def get_success_url(self):

@@ -237,7 +237,6 @@ class TodoListsPartialView(ListView):
 
 class TodoListCreateView(CreateView):
     template_name = "todo_lists/todo_list_create_form.html"
-    model = TodoList
     form_class = TodoListForm
     success_url = reverse_lazy("todo-lists")
 
