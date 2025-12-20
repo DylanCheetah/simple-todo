@@ -1,7 +1,7 @@
 # Lesson 16: Responsive UI
 
 At this point our todo list website is functionally complete. However, we need to test how the UI looks on mobile devices. To do this we can make use of the responsive design mode built into many modern web browsers. In Firefox you can enable responsive design mode by right-clicking a webpage, clicking Inspect, and clicking the Responsive Design Mode button in the upper right corner of the web developer tools pane. You can also choose the side of the browser window the developer tools are docked to by clicking the elipsis button next to the Responsive Design Mode button. I normally dock the developer tools to the right side of the window. In Microsoft Edge you can enable responsive design mode by right-clicking a webpage, clicking Inspect, and clicking the Toggle Device Emulation button in the upper left corner of the web developer tools pane. The process is similar in other browsers as well. I will be using Firefox. First, let's log out and see how the login page looks:
-*screenshot*
+![resonsive design mode](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/17-responsive_design_mode.png?raw=true)
 
 You will notice that on a mobile device the width of the content is quite a bit less since the screen width is less. We can fix this by defining different column widths based on screen size. Open `simple-todo/simple_todo/accounts/templates/allauth/layouts/base.html` and modify it like this:
 ```html
@@ -52,10 +52,10 @@ You will notice that on a mobile device the width of the content is quite a bit 
 ```
 
 "col-lg-8" will set the column width to 8 on large screens, "col-md-10" will set the column width to 10 on medium screens, and "col-11" will set the column width to 11 for extra small screens. This allows us to adapt the width of the content so it better fits the screen size. Refresh the page and try changing the type of device being emulated to see how it affects the content:
-*screenshot*
+![responsive ui](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/18-responsive_ui.png?raw=true)
 
 Now try logging in to see how our homepage looks on a mobile device:
-*screenshot*
+![homepage on mobile](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/19-homepage_on_mobile.png?raw=true)
 
 As you can see, our homepage looks very broken on mobile devices. Let's fix this. Open `simple-todo/simple_todo/layout/templates/layout/base.html` and modify it like this:
 ```html
@@ -168,10 +168,10 @@ Now open `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_lists_par
 ```
 
 If you refresh the page it should look better now:
-*screenshot*
+![resonsive homepage](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/20-responsive_homepage.png?raw=true)
 
 Next, try clicking one of the todo lists to see how the todo list detail page looks on mobile:
-*screenshot*
+![todo list details on mobile](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/21-todo_list_details_on_mobile.png?raw=true)
 
 We can fix this page in a similar manner. Open `simple-todo/simple_todo/todo_lists/templates/todo_lists/todo_list_full.html` and modify it like this:
 ```html
@@ -333,4 +333,4 @@ Now open `simple-todo/simple_todo/todo_lists/templates/todo_lists/task_info.html
 ```
 
 If you refresh the page now, it should look better:
-*screenshot*
+![responsive todo list details](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/22-responsive_todo_list_details.png?raw=true)
