@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col m-1 card bg-light">
                 <div class="card-body row">
-                    <a class="col-10 nav-link" href="{% url 'todo-list' todo_list.pk %}">{{ todo_list.name }}</a>
-                    <form class="col-2"
+                    <a class="col-lg-10 col-md-9 col-7 nav-link" href="{% url 'todo-list' todo_list.pk %}">{{ todo_list.name }}</a>
+                    <form class="col-lg-2 col-md-3 col-5"
                           hx-delete="{% url 'todo-list' todo_list.pk %}"
                           hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
                         <button class="col-12 btn btn-danger">
@@ -23,7 +23,7 @@
     <br/>
     <div class="row justify-content-center">
         {% if page_obj.has_previous %}
-            <button class="col-2 btn btn-primary"
+            <button class="col-lg-2 col-md-3 col-4 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.previous_page_number }}"
                     hx-target="#todo_lists-view" 
                     hx-swap="outerHTML"
@@ -34,11 +34,11 @@
                     Previous
             </button>
         {% else %}
-            <button class="col-2 btn btn-secondary pe-none">Previous</button>
+            <button class="col-lg-2 col-md-3 col-4 btn btn-secondary pe-none">Previous</button>
         {% endif %}
-        <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        <div class="col-lg-2 col-md-3 col-4 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
         {% if page_obj.has_next %}
-            <button class="col-2 btn btn-primary"
+            <button class="col-lg-2 col-md-3 col-4 btn btn-primary"
                     hx-get="{% url 'todo-lists' %}?page={{ page_obj.next_page_number }}"
                     hx-target="#todo_lists-view"
                     hx-swap="outerHTML"
@@ -49,7 +49,7 @@
                     Next
             </button>
         {% else %}
-            <button class="col-2 btn btn-secondary pe-none">Next</button>
+            <button class="col-lg-2 col-md-3 col-4 btn btn-secondary pe-none">Next</button>
         {% endif %}
     </div>
 </div>

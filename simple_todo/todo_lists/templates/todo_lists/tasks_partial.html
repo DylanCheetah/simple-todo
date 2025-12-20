@@ -11,7 +11,7 @@
     <br/>
     <div class="row justify-content-center">
         {% if page_obj.has_previous %}
-            <button class="col-2 btn btn-primary"
+            <button class="col-lg-2 col-md-3 col-4 btn btn-primary"
                     hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.previous_page_number }}"
                     hx-target="#tasks-view"
                     hx-swap="outerHTML"
@@ -22,11 +22,11 @@
                     Previous
             </button>
         {% else %}
-            <button class="col-2 btn btn-secondary pe-none">Previous</button>
+            <button class="col-lg-2 col-md-3 col-4 btn btn-secondary pe-none">Previous</button>
         {% endif %}
-        <div class="col-2 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
+        <div class="col-lg-2 col-md-3 col-4 text-center">Page {{ page_obj.number }} of {{ paginator.num_pages }}</div>
         {% if page_obj.has_next %}
-            <button class="col-2 btn btn-primary"
+            <button class="col-lg-2 col-md-3 col-4 btn btn-primary"
                     hx-get="{% url 'todo-list' todo_list.pk %}?page={{ page_obj.next_page_number }}"
                     hx-target="#tasks-view"
                     hx-swap="outerHTML"
@@ -37,7 +37,7 @@
                 Next
             </button>
         {% else %}
-            <button class="col-2 btn btn-secondary pe-none">Next</button>
+            <button class="col-lg-2 col-md-3 col-4 btn btn-secondary pe-none">Next</button>
         {% endif %}
     </div>
 </div>

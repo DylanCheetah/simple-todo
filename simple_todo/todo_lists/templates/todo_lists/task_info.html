@@ -1,5 +1,5 @@
 <div id="task-{{ task.pk }}" class="card-body row">
-    <div class="col-8">
+    <div class="col-lg-8 col-md-6 col-12">
         <div class="row">
             <div class="col-12">{{ task.name }}</div>
         </div>
@@ -7,7 +7,7 @@
             <div class="col-12 text-secondary">{{ task.due_date }}</div>
         </div>
     </div>
-    <div class="col-2">
+    <div class="col-lg-2 col-md-3 col-12 m-lg-0 m-md-0 m-1">
         <button class="col-12 btn btn-warning"
                 hx-get="{% url 'task-edit' task.pk %}"
                 hx-target="#task-{{ task.pk }}"
@@ -18,7 +18,7 @@
             Edit
         </button>
     </div>
-    <form class="col-2"
+    <form class="col-lg-2 col-md-3 col-12 m-lg-0 m-md-0 m-1"
             hx-delete="{% url 'task' task.pk %}"
             hx-target="#tasks-view"
             hx-swap="outerHTML"
