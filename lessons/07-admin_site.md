@@ -19,7 +19,7 @@ class TodoListAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ["name", "todo_list", "due_date", "is_completed"]
+    list_display = ["name", "todo_list", "due_date"]
     ordering = ["name"]
     autocomplete_fields = ["todo_list"]
     search_fields = ["name", "todo_list__name", "todo_list__user__username"]
