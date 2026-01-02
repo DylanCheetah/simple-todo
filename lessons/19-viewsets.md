@@ -20,6 +20,10 @@ class TodoListViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.request.user.todo_lists.order_by("name")
     
+    def perform_create(self, serializer):
+        # Associate the new todo list with the current user
+        serializer.save(user=self.request.user)
+    
 
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
@@ -32,4 +36,4 @@ class TaskViewSet(viewsets.ModelViewSet):
             todo_list__user=self.request.user).order_by("name")
 ```
 
-Each viewset class should extend the `viewsets.ModelViewSet` class. The `serializer_class` attribute determines which serializer to use, the `permission_classes` attribute determines which permission classes will be used to control access, and the `get_queryset` method should return a queryset of accessible data model instances.
+Each viewset class should extend the `viewsets.ModelViewSet` class. The `serializer_class` attribute determines which serializer to use, the `permission_classes` attribute determines which permission classes will be used to control access, and the `get_queryset` method should return a queryset of accessible data model instances. The `perform_create` method can be overridden to modify a data model instance before saving it. This is useful for associating a data model with the current user.

@@ -16,6 +16,10 @@ class TodoListViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.request.user.todo_lists.order_by("name")
     
+    def perform_create(self, serializer):
+        # Associate the new todo list with the current user
+        serializer.save(user=self.request.user)
+    
 
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
