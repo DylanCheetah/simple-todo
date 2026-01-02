@@ -1,3 +1,7 @@
+# Lesson 19: Viewsets
+
+To create the structure of our REST API we will use viewsets. Each viewset class will manage one data model. Open `simple-todo/simple_todo/todo_lists_api_v1/views.py` and modify it like this:
+```python
 from django.shortcuts import render
 from rest_framework import permissions, viewsets
 
@@ -26,3 +30,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Task.objects.filter(
             todo_list__user=self.request.user).order_by("name")
+```
+
+Each viewset class should extend the `viewsets.ModelViewSet` class. The `serializer_class` attribute determines which serializer to use, the `permission_classes` attribute determines which permission classes will be used to control access, and the `get_queryset` method should return a queryset of accessible data model instances.
