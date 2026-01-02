@@ -4,7 +4,7 @@ Our REST API will need to be able to convert data models to JSON and convert JSO
 ```python
 from rest_framework import serializers
 
-from .models import Task, TodoList
+from todo_lists.models import Task, TodoList
 
 
 # Serializer Classes
