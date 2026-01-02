@@ -26,13 +26,13 @@ urlpatterns = [
 ```
 
 After we create an instance of the default router we call its `register` method with the base URL, viewset, and model name for each viewset we wish to register. Then we include the value of the `urls` attribute of our router into our URL config. When our website is in debug mode, we can view our REST API as a series of generated webpages by visiting the root URL of our REST API in a web browser. If you visit http://127.0.0.1:8000/api/v1/ in a web browser, you should see this page:
-*screenshot*
+![rest api root](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/23-rest_api_root.png?raw=true)
 
 The root page of the REST API shows the URL which each viewset was mapped to. If you visit http://127.0.0.1:8000/api/v1/todo-lists/ you should see this page:
-*screenshot*
+![todo lists api](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/24-todo_lists_api.png?raw=true)
 
 You can use the form at the bottom of the page to create a new todo list. If you add the ID of a todo list to the end of the current URL, you should see this page:
-*screenshot*
+![todo list details api](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/25-todo_list_details_api.png?raw=true)
 
 You can use the form at the bottom of the page to modify the todo list you're viewing. You can also click the delete button to delete the todo list you're viewing. Each viewset will have 2 URL endpoints which together provide 5 actions. The URL endpoints for the todo list viewset are:
 ```
