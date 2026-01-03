@@ -1,0 +1,42 @@
+#:kivy 1.9.3
+
+<LoginScreen>:
+    username: username.text
+    password: password.text
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+
+        BoxLayout:
+            size_hint: .5, .4
+            spacing: dp(8)
+            orientation: "vertical"
+
+            Label:
+                text: "Login"
+                font_size: dp(24)
+
+            TextInput:
+                id: username
+                hint_text: "Username"
+                multiline: False
+
+            TextInput:
+                id: password
+                hint_text: "Password"
+                multiline: False
+                password: True
+
+            Label:
+                text: root.status_msg
+
+            Button:
+                id: login_btn
+                text: "Login"
+                on_release: root.login()
+
+            Button:
+                id: signup_btn
+                text: "Sign-Up"
+                on_release: root.signup()

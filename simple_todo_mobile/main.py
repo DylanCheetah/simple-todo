@@ -1,7 +1,10 @@
 import asyncio
 
 from kivy.app import App
+from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import ScreenManager
+
+import screens.login_screen
 
 
 # Main Screen Class
@@ -13,8 +16,13 @@ class MainScreen(ScreenManager):
 # App Class
 # =========
 class SimpleTodoMobileApp(App):
+    tokens = ObjectProperty()
+    
     def build(self):
         return MainScreen()
+    
+    def spawn_task(self, coro):
+        loop.create_task(coro)
     
 
 # Entry Point
