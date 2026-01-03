@@ -51,6 +51,6 @@ python main.py
 ```
 
 You should see a blank window like this for now:
-*screenshot*
+![mobile app](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/26-mobile_app.png?raw=true)
 
 Close the window for your mobile app when you are finished testing it.
