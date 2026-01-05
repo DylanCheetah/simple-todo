@@ -12,6 +12,7 @@ Next, create a folder called "screens" inside `simple-todo/simple_todo_mobile/` 
 #:kivy 1.9.3
 
 <LoginScreen>:
+    name: "LoginScreen"
     username: username.text
     password: password.text
 
