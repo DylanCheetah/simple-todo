@@ -173,4 +173,4 @@ The new `tokens` property of our app class will store the access and refresh tok
 ```
 
 This will add the login screen to the main screen. Since this file has the same name as our app it will be automatically loaded on startup. Also, any screens we import into `main.py` will be available in this file. If we run our mobile app at this point, it should look like this:
-*screenshot*
+![mobile login screen](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/27-mobile_login_screen.png?raw=true)
