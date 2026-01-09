@@ -400,4 +400,4 @@ Builder.load_file("screens/login_screen.kv")
 ```
 
 If you run the mobile app now you should be able to view your todo lists, created new todo lists, and delete existing todo lists. If you scroll to the bottom of the loaded todo lists, additional todo lists will be loaded if there are more:
-*screenshot*
+![mobile todo lists screen](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/28-mobile_todo_lists_screen.png?raw=true)
