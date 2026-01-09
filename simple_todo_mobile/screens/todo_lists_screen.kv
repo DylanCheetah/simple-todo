@@ -1,0 +1,92 @@
+#:kivy 1.9.3
+
+<TodoList>:
+    id: 0
+    name: ""
+    delete: None
+
+    Label:
+        size_hint_x: .8
+        text: root.name
+
+    Button:
+        size_hint_x: .2
+        text: "Delete"
+        on_release: root.delete(root.id)
+
+
+<ErrorPopup>:
+    title: "Error"
+    msg: ""
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            size_hint_y: .9
+            text: root.msg
+
+        Button:
+            size_hint_y: .1
+            text: "Ok"
+            on_release: root.dismiss()
+
+
+<TodoListsScreen>:
+    name: "TodoListsScreen"
+    new_todo_list_name: new_todo_list_name.text
+    todo_lists: []
+    scroll_y: todo_lists.scroll_y
+    scrollable_dist: todo_lists_layout.height - todo_lists.height
+
+    BoxLayout:
+        padding: dp(8)
+        orientation: "vertical"
+
+        BoxLayout:
+            size_hint_y: .2
+            spacing: dp(8)
+            orientation: "vertical"
+
+            Label:
+                text: "New Todo List"
+                font_size: dp(24)
+
+            BoxLayout:
+                Label:
+                    size_hint_x: .1
+                    text: "Name:"
+
+                TextInput:
+                    id: new_todo_list_name
+                    size_hint_x: .9
+                    multiline: False
+
+            Button:
+                text: "Create"
+                on_release: root.create_todo_list()
+
+        BoxLayout:
+            size_hint_y: .8
+            spacing: dp(8)
+            orientation: "vertical"
+
+            Label:
+                size_hint_y: .1
+                text: "Todo Lists"
+                font_size: dp(24)
+
+            RecycleView:
+                id: todo_lists
+                size_hint_y: .9
+                viewclass: "TodoList"
+                data: root.todo_lists
+
+                RecycleBoxLayout:
+                    id: todo_lists_layout
+                    orientation: "vertical"
+                    spacing: dp(8)
+                    default_size: None, dp(56)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height

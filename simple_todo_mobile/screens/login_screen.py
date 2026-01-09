@@ -60,7 +60,7 @@ class LoginScreen(Screen):
         # Clear status message, store tokens, and switch to todo lists page
         self.status_msg = ""
         App.get_running_app().tokens = response.json()
-        # TODO: Switch to todo lists page
+        self.parent.current = "TodoListsScreen"
 
     def signup(self):
         # Open the user sign-up page in a web browser

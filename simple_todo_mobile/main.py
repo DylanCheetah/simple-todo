@@ -5,6 +5,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import ScreenManager
 
 import screens.login_screen
+import screens.todo_lists_screen
 
 
 # Main Screen Class
