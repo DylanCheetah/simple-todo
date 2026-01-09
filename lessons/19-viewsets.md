@@ -32,8 +32,17 @@ class TaskViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
-        return Task.objects.filter(
-            todo_list__user=self.request.user).order_by("name")
+        # Filter tasks by current user
+        queryset = Task.objects.filter(todo_list__user=self.request.user)
+
+        # Filter tasks by todo list
+        todo_list = self.request.query_params.get("todo_list")
+
+        if todo_list is not None:
+            queryset = queryset.filter(todo_list=todo_list)
+
+        # Sort tasks by name
+        return queryset.order_by("name")
 ```
 
-Each viewset class should extend the `viewsets.ModelViewSet` class. The `serializer_class` attribute determines which serializer to use, the `permission_classes` attribute determines which permission classes will be used to control access, and the `get_queryset` method should return a queryset of accessible data model instances. The `perform_create` method can be overridden to modify a data model instance before saving it. This is useful for associating a data model with the current user.
+Each viewset class should extend the `viewsets.ModelViewSet` class. The `serializer_class` attribute determines which serializer to use, the `permission_classes` attribute determines which permission classes will be used to control access, and the `get_queryset` method should return a queryset of accessible data model instances. The `perform_create` method can be overridden to modify a data model instance before saving it. This is useful for associating a data model with the current user. We can get the current user via the `user` attribute of the `request` attribute of a viewset instance. We can also get the query parameters from the URL via the `query_params` attribute of the request object.
