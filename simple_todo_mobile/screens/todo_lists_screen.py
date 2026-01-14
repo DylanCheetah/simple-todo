@@ -114,6 +114,9 @@ class TodoListsScreen(Screen):
         App.get_running_app().spawn_task(self.async_create_todo_list())
 
     async def async_create_todo_list(self):
+        # Disable todo list create button
+        self.ids.create_todo_list_btn.disabled = True
+
         # Create new todo list
         async with httpx.AsyncClient() as client:
             try:
@@ -130,6 +133,10 @@ class TodoListsScreen(Screen):
             except httpx.ConnectError:
                 self.show_error("Network connection failed.")
                 return
+            
+            finally:
+                # Enable todo list create button
+                self.ids.create_todo_list_btn.disabled = False
             
         # Check status code
         if response.status_code != 201:
