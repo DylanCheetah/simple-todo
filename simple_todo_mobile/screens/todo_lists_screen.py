@@ -8,10 +8,10 @@ from kivy.properties import (
     StringProperty
 )
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
 
 import config
+from dialogs.error_dialog import ErrorPopup
 
 
 # Todo List Class
@@ -20,12 +20,6 @@ class TodoList(BoxLayout):
     id = NumericProperty()
     name = StringProperty()
     delete = ObjectProperty()
-
-
-# Error Popup Class
-# =================
-class ErrorPopup(Popup):
-    msg = StringProperty()
 
 
 # Todo Lists Screen Class

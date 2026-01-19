@@ -1,0 +1,17 @@
+#:kivy 1.9.3
+
+<ErrorPopup>:
+    title: "Error"
+    msg: ""
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            size_hint_y: .9
+            text: root.msg
+
+        Button:
+            size_hint_y: .1
+            text: "Ok"
+            on_release: root.dismiss()

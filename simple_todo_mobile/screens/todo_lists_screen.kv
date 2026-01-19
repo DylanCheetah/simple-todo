@@ -15,23 +15,6 @@
         on_release: root.delete(root.id)
 
 
-<ErrorPopup>:
-    title: "Error"
-    msg: ""
-
-    BoxLayout:
-        orientation: "vertical"
-
-        Label:
-            size_hint_y: .9
-            text: root.msg
-
-        Button:
-            size_hint_y: .1
-            text: "Ok"
-            on_release: root.dismiss()
-
-
 <TodoListsScreen>:
     name: "TodoListsScreen"
     new_todo_list_name: new_todo_list_name.text

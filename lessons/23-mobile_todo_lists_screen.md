@@ -8,24 +8,9 @@ SIGNUP_URL = "http://127.0.0.1:8000/accounts/signup/"
 TODO_LISTS_URL = "http://127.0.0.1:8000/api/v1/todo-lists/"
 ```
 
-Next, create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.kv` with the following content:
+Next, create a folder called "dialogs" inside `simple-todo/simple_todo_mobile/` and create `simple-todo/simple_todo_mobile/dialogs/error_dialog.kv` with the following content:
 ```kvlang
 #:kivy 1.9.3
-
-<TodoList>:
-    id: 0
-    name: ""
-    delete: None
-
-    Label:
-        size_hint_x: .8
-        text: root.name
-
-    Button:
-        size_hint_x: .2
-        text: "Delete"
-        on_release: root.delete(root.id)
-
 
 <ErrorPopup>:
     title: "Error"
@@ -42,6 +27,41 @@ Next, create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.kv` with 
             size_hint_y: .1
             text: "Ok"
             on_release: root.dismiss()
+```
+
+Then create `simple-todo/simple_todo_mobile/error_dialog.py` with the following content:
+```python
+from kivy.lang import Builder
+from kivy.properties import StringProperty
+from kivy.uix.popup import Popup
+
+
+# Error Popup Class
+# =================
+class ErrorPopup(Popup):
+    msg = StringProperty()
+
+
+Builder.load_file("dialogs/error_dialog.kv")
+```
+
+This dialog box will be used to display any error messages which occur. Next, create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.kv` with the following content:
+```kvlang
+#:kivy 1.9.3
+
+<TodoList>:
+    id: 0
+    name: ""
+    delete: None
+
+    Label:
+        size_hint_x: .8
+        text: root.name
+
+    Button:
+        size_hint_x: .2
+        text: "Delete"
+        on_release: root.delete(root.id)
 
 
 <TodoListsScreen>:
@@ -105,7 +125,7 @@ Next, create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.kv` with 
                     height: self.minimum_height
 ```
 
-The our todo lists screen will consist of 2 box layouts inside a main box layout. The top box layout will contain a label, the fields needed to create a todo list, and a button to create a new todo list. The bottom box layout will contain a label and a recycle view which will display the todo lists owned by the current user. We will also need a todo list widget which will be used to display each todo list in the recycle view. The error popup widget will be used to display error messages as needed. Now we need to create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.py` with the following content:
+The our todo lists screen will consist of 2 box layouts inside a main box layout. The top box layout will contain a label, the fields needed to create a todo list, and a button to create a new todo list. The bottom box layout will contain a label and a recycle view which will display the todo lists owned by the current user. We will also need a todo list widget which will be used to display each todo list in the recycle view. Now we need to create `simple-todo/simple_todo_mobile/screens/todo_lists_screen.py` with the following content:
 ```python
 import httpx
 from kivy.app import App
@@ -117,10 +137,10 @@ from kivy.properties import (
     StringProperty
 )
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
 
 import config
+from dialogs.error_dialog import ErrorPopup
 
 
 # Todo List Class
@@ -129,12 +149,6 @@ class TodoList(BoxLayout):
     id = NumericProperty()
     name = StringProperty()
     delete = ObjectProperty()
-
-
-# Error Popup Class
-# =================
-class ErrorPopup(Popup):
-    msg = StringProperty()
 
 
 # Todo Lists Screen Class
