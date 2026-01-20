@@ -926,10 +926,10 @@ Builder.load_file("screens/todo_lists_screen.kv")
 ```
 
 If we run our todo list mobile app at this point we should be able to click the name of a todo list to view its details:
-*screenshot*
+![todo list screen](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/29-mobile_todo_list_screen.png?raw=true)
 
 We can click the edit button next to the todo list name to modify the name:
-*screenshot*
+![todo list edit form](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/30-todo_list_edit_form.png?raw=true)
 
 And we can click the edit button next to a task in order to modify the task:
-*screenshot*
+![task edit popup](https://github.com/DylanCheetah/simple-todo/blob/main/lessons/screenshots/31-task_edit_popup.png?raw=true)
