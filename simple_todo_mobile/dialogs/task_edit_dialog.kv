@@ -1,0 +1,54 @@
+#:kivy 1.9.3
+
+<TaskEditPopup>:
+    title: "Edit Task"
+    task: 0
+    name: ""
+    due_date: ""
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: .06
+
+            Label:
+                size_hint_x: .1
+                text: "Name:"
+
+            TextInput:
+                id: name
+                size_hint_x: .9
+                multiline: False
+                text: root.name
+
+        BoxLayout:
+            size_hint_y: .06
+
+            Label:
+                size_hint_x: .1
+                text: "Due Date:"
+
+            TextInput:
+                id: due_date
+                size_hint_x: .9
+                multiline: False
+                hint_text: "mm/dd/YYYY HH:MM"
+                text: root.format_date(root.due_date)
+
+        BoxLayout:
+            size_hint_y: .73
+
+        BoxLayout:
+            size_hint_y: .1
+
+            Button:
+                id: save_task_btn
+                text: "Save"
+                on_release: root.update_task()
+
+            Button:
+                id: cancel_edit_task_btn
+                text: "Cancel"
+                on_release: root.dismiss()

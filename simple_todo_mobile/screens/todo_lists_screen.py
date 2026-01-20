@@ -8,7 +8,7 @@ from kivy.properties import (
     StringProperty
 )
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, SlideTransition
 
 import config
 from dialogs.error_dialog import ErrorPopup
@@ -20,6 +20,12 @@ class TodoList(BoxLayout):
     id = NumericProperty()
     name = StringProperty()
     delete = ObjectProperty()
+    view = ObjectProperty()
+
+    def on_touch_up(self, touch):
+        # Was the label touched?
+        if self.ids.name_label.collide_point(touch.x, touch.y):
+            self.view(self.id)
 
 
 # Todo Lists Screen Class
@@ -98,7 +104,8 @@ class TodoListsScreen(Screen):
                 {
                     "id": todo_list["id"], 
                     "name": todo_list["name"], 
-                    "delete": self.delete_todo_list
+                    "delete": self.delete_todo_list,
+                    "view": self.view_todo_list
                 } for todo_list in payload["results"]
             ]
         )
@@ -167,6 +174,12 @@ class TodoListsScreen(Screen):
         
         # Refresh todo lists
         self.reset()
+
+    def view_todo_list(self, id):
+        # Set the todo list to view and switch to the todo list screen
+        self.parent.get_screen("TodoListScreen").todo_list = id
+        self.parent.transition = SlideTransition(direction="left")
+        self.parent.current = "TodoListScreen"
 
 
 Builder.load_file("screens/todo_lists_screen.kv")

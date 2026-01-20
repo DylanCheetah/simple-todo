@@ -1,0 +1,152 @@
+#:kivy 1.9.3
+
+<Task>:
+    id: 0
+    name: ""
+    due_date: ""
+    edit: None
+    delete: None
+
+    BoxLayout:
+        size_hint_x: .8
+        orientation: "vertical"
+
+        Label:
+            text: root.name
+
+        Label:
+            text: root.format_date(root.due_date)
+
+    Button:
+        size_hint_x: .1
+        text: "Edit"
+        on_release: root.edit(root)
+
+    Button:
+        size_hint_x: .1
+        text: "Delete"
+        on_release: root.delete(root.id)
+
+
+<TodoListScreen>:
+    name: "TodoListScreen"
+    todo_list: 0
+    todo_list_name: "[Todo List]"
+    next_page: ""
+    tasks: tasks.data
+    scrollable_dist: tasks.layout_manager.height - tasks.height
+    scroll_y: tasks.scroll_y
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Button:
+            size_hint_y: .05
+            text: "Back"
+            on_release: root.back()
+
+        ScreenManager:
+            id: todo_list_info
+            size_hint_y: .1
+            
+            Screen:
+                name: "TodoListInfo"
+
+                BoxLayout:
+                    Label:
+                        size_hint_x: .9
+                        font_size: dp(32)
+                        text: root.todo_list_name
+
+                    Button:
+                        size_hint_x: .1
+                        text: "Edit"
+                        on_release: root.edit()
+
+            Screen:
+                name: "TodoListForm"
+
+                BoxLayout:
+                    orientation: "vertical"
+
+                    BoxLayout:
+                        Label:
+                            size_hint_x: .1
+                            text: "Name:"
+
+                        TextInput:
+                            id: todo_list_name
+                            size_hint_x: .9
+                            multiline: False
+                            text: root.todo_list_name
+
+                    BoxLayout:
+                        Button:
+                            id: save_todo_list_btn
+                            text: "Save"
+                            on_release: root.save()
+
+                        Button:
+                            id: cancel_edit_btn
+                            text: "Cancel"
+                            on_release: root.cancel_edit()
+        
+        BoxLayout:
+            size_hint_y: .27
+            orientation: "vertical"
+            padding: dp(8)
+            spacing: dp(8)
+
+            Label:
+                font_size: dp(24)
+                text: "New Task"
+
+            BoxLayout:
+                Label:
+                    size_hint_x: .1
+                    text: "Name:"
+
+                TextInput:
+                    id: new_task_name
+                    size_hint_x: .9
+                    multiline: False
+
+            BoxLayout:
+                Label:
+                    size_hint_x: .1
+                    text: "Due Date:"
+
+                TextInput:
+                    id: new_task_due_date
+                    size_hint_x: .9
+                    hint_text: "mm/dd/YYYY HH:MM"
+                    multiline: False
+
+            Button:
+                id: create_task_btn
+                text: "Create"
+                on_release: root.create_task()
+
+        BoxLayout:
+            size_hint_y: .535
+            orientation: "vertical"
+            padding: dp(8)
+
+            Label:
+                size_hint_y: .1
+                font_size: dp(24)
+                text: "Tasks"
+
+            RecycleView:
+                id: tasks
+                size_hint_y: .9
+                viewclass: "Task"
+                data: root.tasks
+
+                RecycleBoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(8)
+                    default_size: None, dp(56)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height

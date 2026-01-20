@@ -4,10 +4,13 @@
     id: 0
     name: ""
     delete: None
+    view: None
 
     Label:
+        id: name_label
         size_hint_x: .8
         text: root.name
+        on_touch_up: root.view(root.id)
 
     Button:
         size_hint_x: .2
