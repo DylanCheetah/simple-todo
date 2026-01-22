@@ -33,7 +33,10 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] if DEBUG else [
+    ".vercel.app",
+    ".now.sh"
+]
 
 
 # Application definition
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.csp.ContentSecurityPolicyMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware"
 ]
@@ -131,11 +135,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cookie security
+CSRF_COOKIE_SECURE = not env("DEBUG")
+SESSION_COOKIE_SECURE = not env("DEBUG")
+
+# Content security policy
+from django.utils.csp import CSP
+
+CSP_SECURE = {
+    "default-src": [CSP.SELF]
+}
 
 # Website constants
 WEBSITE_NAME = "Simple Todo"

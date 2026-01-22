@@ -4,6 +4,4 @@ django-environ
 django-htmx
 djangorestframework
 djangorestframework-simplejwt
-httpx
-kivy
 psycopg
