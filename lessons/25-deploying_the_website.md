@@ -76,6 +76,26 @@ CSP_SECURE = {
 }
 ```
 
+Next we need to open `simple-todo/simple_todo/simple_todo/wsgi.py` and modify it like this:
+```python
+"""
+WSGI config for simple_todo project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple_todo.settings')
+
+app = get_wsgi_application()
+```
+
 Now we need to create `simple-todo/simple_todo/requirements.txt` with the following content:
 ```
 Django
