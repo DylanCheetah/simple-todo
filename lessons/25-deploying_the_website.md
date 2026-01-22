@@ -40,7 +40,7 @@ Then add the static root setting below the static URL setting. It should be set 
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = BASE_DIR / "dist" / "static"
 ```
 
 Next, add the following section to your settings. This will prevent sending CSRF and session cookies over HTTP in a production environment:
@@ -84,12 +84,14 @@ django-environ
 django-htmx
 djangorestframework
 djangorestframework-simplejwt
-psycopg
+psycopg[binary]
 ```
 
 This file will determine what dependencies need to be installed by Vercel in order to run our website. Next we need to create `simple-todo/simple_todo/build-files.sh` with the following content:
 ```sh
 # build-files.sh
+python3.12 -m venv venv
+source ./venv/bin/activate
 pip install -r requirements.txt
 python3.12 manage.py collectstatic --noinput
 ```
@@ -110,7 +112,7 @@ This script will be run to build our website. We also need to create `simple-tod
             "src": "build_files.sh",
             "use": "@vercel/static-build",
             "config": {
-                "distDir": "static"
+                "distDir": "dist"
             }
         }
     ],
@@ -129,4 +131,4 @@ This script will be run to build our website. We also need to create `simple-tod
 
 If you haven't already, you will need to create a GitHub repository for your project and push all your code to it. Make sure you choose python for your .gitignore template and that `simple-todo/simple_todo/.env.dbg` and `simple-todo/simple_todo/.env.prod` are added to your `.gitignore` file.
 
-Next, visit https://vercel.com/ and goto the dashboard page. Click Add New... > Project. You will need to link your GitHub account to your Vercel account the first time you do this. You will also need to install the Vercel GitHub app into your GitHub account and choose which repos it will have access to. Then choose to import the GitHub repo for your todo list website. On the next page, expand the Environment Variables section and import your .env file. Click the Deploy button and wait for the deployment to complete.
+Next, visit https://vercel.com/ and goto the dashboard page. Click Add New... > Project. You will need to link your GitHub account to your Vercel account the first time you do this. You will also need to install the Vercel GitHub app into your GitHub account and choose which repos it will have access to. Then choose to import the GitHub repo for your todo list website. Set the root folder to `simple_todo`. Then expand the Environment Variables section and import your .env file. Click the Deploy button and wait for the deployment to complete.
