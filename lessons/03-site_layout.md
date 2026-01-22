@@ -67,6 +67,18 @@ We will be using Bootstrap for the theme of our website. So we will need to inst
     </head>
     <body>
         <div class="container-fluid">
+            {% if messages %}
+                <div class="row justify-content-center">
+                    <div class="col-8 m-2 alert alert-primary">
+                        <strong>Messages:</strong>
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
             <div class="row justify-content-center">
@@ -77,7 +89,7 @@ We will be using Bootstrap for the theme of our website. So we will need to inst
 </html>
 ```
 
-We use the `load` Django template tag to load the static file middleware so we can use the `static` tag to generate URLs for our static files automatically. We use the `block` and `endblock` tags to define named blocks where we can insert content via templates that extend the layout template. We insert the value of the `WEBSITE_NAME` and `AUTHOR_NAME` template context variables into the title and copyright sections. We use the `now` tag to insert the current year into the copyright section as well. Your project structure should look like this now:
+We use the `load` Django template tag to load the static file middleware so we can use the `static` tag to generate URLs for our static files automatically. If there are any messages to display, we use a for loop to iterate over them and display them inside an alert above the main content. We use the `block` and `endblock` tags to define named blocks where we can insert content via templates that extend the layout template. We insert the value of the `WEBSITE_NAME` and `AUTHOR_NAME` template context variables into the title and copyright sections. We use the `now` tag to insert the current year into the copyright section as well. Your project structure should look like this now:
 ```
 simple-todo/
     simple_todo/

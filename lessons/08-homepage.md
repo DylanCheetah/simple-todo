@@ -60,6 +60,18 @@ Then download htmx by following the download instructions at https://htmx.org/do
     </head>
     <body>
         <div class="container-fluid">
+            {% if messages %}
+                <div class="row justify-content-center">
+                    <div class="col-8 m-2 alert alert-primary">
+                        <strong>Messages:</strong>
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
             <div class="row justify-content-center">
@@ -164,6 +176,18 @@ Then we need to modify `simple-todo/simple_todo/layout/templates/layout/base.htm
     <body>
         {% include "layout/navbar.html" %}
         <div class="container-fluid">
+            {% if messages %}
+                <div class="row justify-content-center">
+                    <div class="col-8 m-2 alert alert-primary">
+                        <strong>Messages:</strong>
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
             <div class="row justify-content-center">

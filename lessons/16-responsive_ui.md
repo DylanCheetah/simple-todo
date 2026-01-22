@@ -72,6 +72,18 @@ As you can see, our homepage looks very broken on mobile devices. Let's fix this
     <body>
         {% include "layout/navbar.html" %}
         <div class="container-fluid">
+            {% if messages %}
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10 col-11 m-2 alert alert-primary">
+                        <strong>Messages:</strong>
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
             <div class="row justify-content-center">
