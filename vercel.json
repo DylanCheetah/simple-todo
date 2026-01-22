@@ -23,7 +23,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "simple_todo/simple_todo/wsgi.py"
+            "dest": "simple_todo/wsgi.py"
         }
     ]
 }
