@@ -87,21 +87,20 @@ djangorestframework-simplejwt
 psycopg
 ```
 
-This file will determine what dependencies need to be installed by Vercel in order to run our website. Next we need to create `simple-todo/build-files.sh` with the following content:
+This file will determine what dependencies need to be installed by Vercel in order to run our website. Next we need to create `simple-todo/simple_todo/build-files.sh` with the following content:
 ```sh
 # build-files.sh
-cd simple_todo
 pip install -r requirements.txt
 python3.12 manage.py collectstatic --noinput
 ```
 
-This script will be run to build our website. We also need to create `simple-todo/vercel.json` with the following content:
+This script will be run to build our website. We also need to create `simple-todo/simple_todo/vercel.json` with the following content:
 ```json
 {
     "version": 2,
     "builds": [
         {
-            "src": "simple_todo/simple_todo/wsgi.py",
+            "src": "simple_todo/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb"
@@ -111,7 +110,7 @@ This script will be run to build our website. We also need to create `simple-tod
             "src": "build_files.sh",
             "use": "@vercel/static-build",
             "config": {
-                "distDir": "simple_todo/static"
+                "distDir": "static"
             }
         }
     ],
@@ -122,7 +121,7 @@ This script will be run to build our website. We also need to create `simple-tod
         },
         {
             "src": "/(.*)",
-            "dest": "simple_todo/simple_todo/wsgi.py"
+            "dest": "simple_todo/wsgi.py"
         }
     ]
 }
