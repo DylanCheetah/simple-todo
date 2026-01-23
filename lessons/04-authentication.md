@@ -47,22 +47,125 @@ MIDDLEWARE = [
 ]
 ```
 
-We also need to add the following section to `simple-todo/simple_todo/simple_todo/settings.py`:
+We also need to add the following sections to `simple-todo/simple_todo/simple_todo/settings.py`:
 ```python
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend"
 ]
+
+# Authentication URLs
+LOGIN_REDIRECT_URL = "/"
 ```
 
-Now we need to create a URL mapping for our accounts app. Create `simple-todo/simple_todo/accounts/urls.py` with the following content:
+django-allauth doesn't provide a page for deleting the current user's account, so we will need to create our own. Create a `simple-todo/simple_todo/accounts/templates/accounts/` folder. Your project structure should look like this now:
+```
+simple-todo/
+    simple_todo/
+        accounts/
+            migrations/
+            templates/
+                accounts/
+            __init__.py
+            admin.py
+            apps.py
+            models.py
+            tests.py
+            urls.py
+            views.py
+        layout/
+            migrations/
+            static/
+                layout/
+                    css/
+                        bootstrap.min.css
+                    js/
+                        bootstrap.bundle.min.js
+            templates/
+                layout/
+                    base.html
+            __init__.py
+            admin.py
+            apps.py
+            ctx_proc.py
+            models.py
+            tests.py
+            views.py
+        simple_todo/
+            __init__.py
+            asgi.py
+            settings.py
+            urls.py
+            wsgi.py
+        .env
+        .env.dist
+        db.sqlite
+        manage.py
+    venv/
+    requirements.txt
+```
+
+Then create `simple-todo/simple_todo/accounts/templates/accounts/account_delete.html` with the following content:
+```html
+{% extends "layout/base.html" %}
+
+{% block title %}Delete Account{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <form class="col-lg-8 col-md-10 col-11 m-2 card bg-light"
+              action="{% url 'account-delete' %}"
+              method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                <p>Are you sure you wish to <strong>permanently</strong> delete your account?</p>
+                <div class="row justify-content-center">
+                    <button class="col-5 m-1 btn btn-danger">Yes</button>
+                    <a class="col-5 m-1 btn btn-primary" href="{% url 'todo-lists' %}">No</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+```
+
+This page has a form which asks the user to confirm if they want to delete their account. If they click Yes, their account will be deleted. If they click No, they will be redirected to the homepage. Next we need to create a view for the account deletion page. Open `simple-todo/simple_todo/accounts/views.py` and modify it like this:
+```python
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.views.generic import TemplateView
+
+
+# View Classes
+# ============
+class AccountDeleteView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/account_delete.html"
+
+    def post(self, *args, **kwargs):
+        # Delete the current user's account and return to the homepage
+        self.request.user.delete()
+        messages.add_message(
+            self.request, 
+            messages.INFO, 
+            "Your account has been successfully deleted."
+        )
+        return HttpResponseRedirect(reverse("todo-lists"))
+```
+
+`AccountDeleteView` extends `LoginRequiredMixin` and `TemplateView`. The `template_name` attribute determines which template will be rendered when the view receives an HTTP GET request. We define a `post` method which will be called when the view receives and HTTP POST request. The `post` method will delete the current user, add a message indicating the user's account was successfully deleted, and redirect to the homepage. Now we need to create a URL mapping for our accounts app. Create `simple-todo/simple_todo/accounts/urls.py` with the following content:
 ```python
 from django.urls import include, path
 
+from . import views
+
 
 urlpatterns = [
-    path("", include("allauth.urls"))
+    path("", include("allauth.urls")),
+    path("delete/", views.AccountDeleteView.as_view(), name="account-delete")
 ]
 ```
 

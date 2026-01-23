@@ -1,12 +1,14 @@
 # Lesson 05: Allauth Theme
 
-At the moment our login page has no theme. We can create a theme for all of the pages provided by django-allauth by overriding the default templates used for them. The easiest way to do this is to copy the default allauth layout templates to a templates folder in our accounts app. First you need to create a `simple-todo/simple_todo/accounts/templates/` folder. Next you need to copy `simple-todo/venv/Lib/site-packages/templates/allauth/` to `simple-todo/simple_todo/accounts/templates/`. Your project structure should look like this now:
+At the moment our login page has no theme. We can create a theme for all of the pages provided by django-allauth by overriding the default templates used for them. The easiest way to do this is to copy the default allauth layout templates to a templates folder in our accounts app. First you need to copy `simple-todo/venv/Lib/site-packages/templates/allauth/` to `simple-todo/simple_todo/accounts/templates/`. Your project structure should look like this now:
 ```
 simple-todo/
     simple_todo/
         accounts/
             migrations/
             templates/
+                accounts/
+                    account_delete.html
                 allauth/
                     elements/
                     layout/
@@ -87,6 +89,9 @@ To change the overall look of every allauth page, modify the `simple-todo/simple
                                         {% csrf_token %}
                                         <input class="nav-link" type="submit" value="Logout"/>
                                     </form>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'account-delete' %}">Delete Account</a>
                                 </li>
                             {% endif %}
                         </ul>

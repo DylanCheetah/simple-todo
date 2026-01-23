@@ -106,6 +106,9 @@ At this point we haven't yet added our navigation bar to our main layout templat
                             <input class="nav-link" type="submit" value="Logout"/>
                         </form>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account-delete' %}">Delete Account</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

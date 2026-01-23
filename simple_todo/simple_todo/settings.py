@@ -163,6 +163,9 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend"
 ]
 
+# Authentication URLs
+LOGIN_REDIRECT_URL = "/"
+
 # Allauth form classes
 ACCOUNT_FORMS = {
     "login": "accounts.forms.LoginForm",
