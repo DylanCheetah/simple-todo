@@ -20,10 +20,11 @@ Now open a new terminal in Visual Studio Code and execute the following command 
 pip install -r requirements.txt
 ```
 
-Next, execute the following commands to apply migrations to the production database:
+Next, execute the following commands to apply migrations to the production database and create a superuser:
 ```sh
 cd simple_todo
 python manage.py migrate
+python manage.py createsuperuser
 ```
 
 Now open `simple-todo/simple_todo/simple_todo/settings.py` and set the allowed hosts like this:
