@@ -86,12 +86,12 @@ This dialog box will be used to display any error messages which occur. Next, cr
 
             BoxLayout:
                 Label:
-                    size_hint_x: .1
+                    size_hint_x: .2
                     text: "Name:"
 
                 TextInput:
                     id: new_todo_list_name
-                    size_hint_x: .9
+                    size_hint_x: .8
                     multiline: False
 
             Button:

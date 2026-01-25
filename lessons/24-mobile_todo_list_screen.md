@@ -27,12 +27,12 @@ Next create `simple-todo/simple_todo_mobile/dialogs/task_edit_dialog.kv` with th
             size_hint_y: .06
 
             Label:
-                size_hint_x: .1
+                size_hint_x: .2
                 text: "Name:"
 
             TextInput:
                 id: name
-                size_hint_x: .9
+                size_hint_x: .8
                 multiline: False
                 text: root.name
 
@@ -40,12 +40,12 @@ Next create `simple-todo/simple_todo_mobile/dialogs/task_edit_dialog.kv` with th
             size_hint_y: .06
 
             Label:
-                size_hint_x: .1
+                size_hint_x: .2
                 text: "Due Date:"
 
             TextInput:
                 id: due_date
-                size_hint_x: .9
+                size_hint_x: .8
                 multiline: False
                 hint_text: "mm/dd/YYYY HH:MM"
                 text: root.format_date(root.due_date)
@@ -167,7 +167,7 @@ The task edit popup will be used to edit the info for existing tasks. It has a n
     delete: None
 
     BoxLayout:
-        size_hint_x: .8
+        size_hint_x: .6
         orientation: "vertical"
 
         Label:
@@ -177,12 +177,12 @@ The task edit popup will be used to edit the info for existing tasks. It has a n
             text: root.format_date(root.due_date)
 
     Button:
-        size_hint_x: .1
+        size_hint_x: .2
         text: "Edit"
         on_release: root.edit(root)
 
     Button:
-        size_hint_x: .1
+        size_hint_x: .2
         text: "Delete"
         on_release: root.delete(root.id)
 
@@ -213,12 +213,12 @@ The task edit popup will be used to edit the info for existing tasks. It has a n
 
                 BoxLayout:
                     Label:
-                        size_hint_x: .9
+                        size_hint_x: .8
                         font_size: dp(32)
                         text: root.todo_list_name
 
                     Button:
-                        size_hint_x: .1
+                        size_hint_x: .2
                         text: "Edit"
                         on_release: root.edit()
 
@@ -230,12 +230,12 @@ The task edit popup will be used to edit the info for existing tasks. It has a n
 
                     BoxLayout:
                         Label:
-                            size_hint_x: .1
+                            size_hint_x: .2
                             text: "Name:"
 
                         TextInput:
                             id: todo_list_name
-                            size_hint_x: .9
+                            size_hint_x: .8
                             multiline: False
                             text: root.todo_list_name
 
@@ -262,22 +262,22 @@ The task edit popup will be used to edit the info for existing tasks. It has a n
 
             BoxLayout:
                 Label:
-                    size_hint_x: .1
+                    size_hint_x: .2
                     text: "Name:"
 
                 TextInput:
                     id: new_task_name
-                    size_hint_x: .9
+                    size_hint_x: .8
                     multiline: False
 
             BoxLayout:
                 Label:
-                    size_hint_x: .1
+                    size_hint_x: .2
                     text: "Due Date:"
 
                 TextInput:
                     id: new_task_due_date
-                    size_hint_x: .9
+                    size_hint_x: .8
                     hint_text: "mm/dd/YYYY HH:MM"
                     multiline: False
 
@@ -697,12 +697,12 @@ Then we need to modify `simple-todo/simple_todo_mobile/screens/todo_lists_screen
 
             BoxLayout:
                 Label:
-                    size_hint_x: .1
+                    size_hint_x: .2
                     text: "Name:"
 
                 TextInput:
                     id: new_todo_list_name
-                    size_hint_x: .9
+                    size_hint_x: .8
                     multiline: False
 
             Button:
