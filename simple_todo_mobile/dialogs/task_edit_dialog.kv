@@ -14,12 +14,12 @@
             size_hint_y: .06
 
             Label:
-                size_hint_x: .1
+                size_hint_x: .2
                 text: "Name:"
 
             TextInput:
                 id: name
-                size_hint_x: .9
+                size_hint_x: .8
                 multiline: False
                 text: root.name
 
@@ -27,12 +27,12 @@
             size_hint_y: .06
 
             Label:
-                size_hint_x: .1
+                size_hint_x: .2
                 text: "Due Date:"
 
             TextInput:
                 id: due_date
-                size_hint_x: .9
+                size_hint_x: .8
                 multiline: False
                 hint_text: "mm/dd/YYYY HH:MM"
                 text: root.format_date(root.due_date)
