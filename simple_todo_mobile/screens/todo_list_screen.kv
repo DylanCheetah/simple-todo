@@ -8,7 +8,7 @@
     delete: None
 
     BoxLayout:
-        size_hint_x: .8
+        size_hint_x: .6
         orientation: "vertical"
 
         Label:
@@ -18,12 +18,12 @@
             text: root.format_date(root.due_date)
 
     Button:
-        size_hint_x: .1
+        size_hint_x: .2
         text: "Edit"
         on_release: root.edit(root)
 
     Button:
-        size_hint_x: .1
+        size_hint_x: .2
         text: "Delete"
         on_release: root.delete(root.id)
 
@@ -54,12 +54,12 @@
 
                 BoxLayout:
                     Label:
-                        size_hint_x: .9
+                        size_hint_x: .8
                         font_size: dp(32)
                         text: root.todo_list_name
 
                     Button:
-                        size_hint_x: .1
+                        size_hint_x: .2
                         text: "Edit"
                         on_release: root.edit()
 
