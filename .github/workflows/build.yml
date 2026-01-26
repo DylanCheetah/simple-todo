@@ -1,0 +1,19 @@
+name: Build
+on:
+  push:
+jobs:
+  build-mobile-app:
+    runs-on: ubuntu-latest
+    container: kivy/buildozer
+    steps:
+    - name: Clone Repo
+      uses: actions/checkout@v5
+    - name: Build Mobile App
+      run: |
+        cd simple_todo_mobile
+        buildozer android debug
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: mobile-app
+        path: simple_todo_mobile/bin/*.apk
