@@ -91,7 +91,17 @@ class TodoListsScreen(Screen):
                 return
             
         # Check status code
-        if response.status_code != 200:
+        if response.status_code == 403:
+            # Refresh access token
+            if not await App.get_running_app().refresh_token():
+                self.show_error("Failed to refresh access token.")
+                return
+            
+            # Retry request
+            await self.async_load_next_page()
+            return
+
+        elif response.status_code != 200:
             self.show_error("Failed to fetch todo lists.")
             return
         
@@ -140,7 +150,17 @@ class TodoListsScreen(Screen):
                 self.ids.create_todo_list_btn.disabled = False
             
         # Check status code
-        if response.status_code != 201:
+        if response.status_code == 403:
+            # Refresh access token
+            if not await App.get_running_app().refresh_token():
+                self.show_error("Failed to refresh access token.")
+                return
+            
+            # Retry request
+            await self.async_create_todo_list()
+            return
+
+        elif response.status_code != 201:
             self.show_error("Failed to create todo list.")
             return
         
@@ -168,7 +188,17 @@ class TodoListsScreen(Screen):
                 return
             
         # Check status code
-        if response.status_code != 204:
+        if response.status_code == 403:
+            # Refresh access token
+            if not await App.get_running_app().refresh_token():
+                self.show_error("Failed to refresh access token.")
+                return
+            
+            # Retry request
+            await self.async_delete_todo_list()
+            return
+
+        elif response.status_code != 204:
             self.show_error("Failed to delete todo list.")
             return
         

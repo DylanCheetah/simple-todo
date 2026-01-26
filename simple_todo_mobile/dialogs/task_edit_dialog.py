@@ -71,7 +71,17 @@ class TaskEditPopup(Popup):
                 self.ids.cancel_edit_task_btn.disabled = False
             
         # Check status code
-        if response.status_code != 200:
+        if response.status_code == 403:
+            # Refresh access token
+            if not await App.get_running_app().refresh_token():
+                self.show_error("Failed to refresh access token.")
+                return
+            
+            # Retry request
+            await self.async_update_task()
+            return
+        
+        elif response.status_code != 200:
             self.show_error("Failed to update task info.")
             return
         
