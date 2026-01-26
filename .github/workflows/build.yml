@@ -4,14 +4,16 @@ on:
 jobs:
   build-mobile-app:
     runs-on: ubuntu-latest
-    container: kivy/buildozer
+    container:
+      image: kivy/buildozer
+      options:
+        --user 1000:1000
     steps:
     - name: Clone Repo
       uses: actions/checkout@v5
     - name: Build Mobile App
       run: |
         cd simple_todo_mobile
-        buildozer android debug --help
         buildozer android debug
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
