@@ -4,16 +4,16 @@ on:
 jobs:
   build-mobile-app:
     runs-on: ubuntu-latest
+    container: kivy/buildozer
     steps:
     - name: Clone Repo
       uses: actions/checkout@v5
     - name: Build Mobile App
-      id: build_mobile_app
-      uses: ArtemSBulgakov/buildozer-action@v1.2.0
-      with:
-        workdir: simple_todo_mobile
-    - name: Upload artifacts
+      run: |
+        cd simple_todo_mobile
+        buildozer android debug
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: package
-        path: ${{ steps.build_mobile_app.outputs.filename }}
+        name: mobile-app
+        path: simple_todo_mobile/bin/*.apk
