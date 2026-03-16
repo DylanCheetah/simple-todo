@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "todo_lists",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "django_htmx",
     'django.contrib.admin',
     'django.contrib.auth',

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "accounts",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

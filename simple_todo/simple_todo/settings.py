@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "todo_lists_api_v1",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "django_htmx",
     "rest_framework",
     'django.contrib.admin',
