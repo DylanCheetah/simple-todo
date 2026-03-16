@@ -11,8 +11,10 @@ class TodoList(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                "user",
-                "name",
+                fields=[
+                    "user",
+                    "name"
+                ],
                 name="unique_user_name"
             )
         ]
@@ -29,8 +31,10 @@ class Task(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                "todo_list",
-                "name",
+                fields=[
+                    "todo_list",
+                    "name"
+                ],
                 name="unique_todo_list_name"
             )
         ]
