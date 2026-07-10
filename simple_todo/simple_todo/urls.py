@@ -21,5 +21,5 @@ urlpatterns = [
     path("", include("todo_lists.urls")),
     path("accounts/", include("accounts.urls")),
     path("api/v1/", include("todo_lists_api_v1.urls")),
-    path('admin/', admin.site.urls),
+    path('1024/admin/', admin.site.urls),
 ]
