@@ -8,6 +8,9 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 """
 
 import os
+import sys
+
+sys.path.append("/home/cybermals.heliohost.us/httpdocs/simple-todo/simple_todo/")
 
 from django.core.wsgi import get_wsgi_application
 
