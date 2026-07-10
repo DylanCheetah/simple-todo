@@ -1,7 +1,0 @@
-Django
-django-allauth
-django-environ
-django-htmx
-djangorestframework
-djangorestframework-simplejwt
-psycopg[binary]

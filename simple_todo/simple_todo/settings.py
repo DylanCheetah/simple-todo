@@ -34,8 +34,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [] if DEBUG else [
-    ".vercel.app",
-    ".now.sh"
+    "cybermals.heliohost.us"
 ]
 
 
@@ -67,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django.middleware.csp.ContentSecurityPolicyMiddleware",
+    # "django.middleware.csp.ContentSecurityPolicyMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware"
 ]
@@ -95,6 +94,8 @@ WSGI_APPLICATION = 'simple_todo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import pymysql
+pymysql.install_as_MySQLdb()
 
 DATABASES = {
     'default': env.db()
@@ -148,11 +149,11 @@ CSRF_COOKIE_SECURE = not env("DEBUG")
 SESSION_COOKIE_SECURE = not env("DEBUG")
 
 # Content security policy
-from django.utils.csp import CSP
+"""from django.utils.csp import CSP
 
 CSP_SECURE = {
     "default-src": [CSP.SELF]
-}
+}"""
 
 # Website constants
 WEBSITE_NAME = "Simple Todo"

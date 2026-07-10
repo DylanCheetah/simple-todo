@@ -1,4 +1,4 @@
-Django
+Django<6
 django-allauth
 django-environ
 django-htmx
@@ -6,4 +6,4 @@ djangorestframework
 djangorestframework-simplejwt
 httpx
 kivy
-psycopg
+PyMySQL
