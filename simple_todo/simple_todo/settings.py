@@ -136,7 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'simple-todo/static/'
+STATIC_URL = 'static/' if DEBUG else 'simple-todo/static/'
 STATIC_ROOT = BASE_DIR / "dist" / "static"
 
 # Default primary key field type
@@ -147,6 +147,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Cookie security
 CSRF_COOKIE_SECURE = not env("DEBUG")
 SESSION_COOKIE_SECURE = not env("DEBUG")
+
+# Adjust base URL
+if not DEBUG:
+    FORCE_SCRIPT_NAME = "simple-todo/"
 
 # Content security policy
 """from django.utils.csp import CSP
