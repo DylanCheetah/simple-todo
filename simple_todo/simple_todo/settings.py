@@ -148,10 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_COOKIE_SECURE = not env("DEBUG")
 SESSION_COOKIE_SECURE = not env("DEBUG")
 
-# Set base URL
-if not DEBUG:
-    FORCE_SCRIPT_NAME = "simple-todo/"
-
 # Content security policy
 """from django.utils.csp import CSP
 
