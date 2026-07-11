@@ -11,6 +11,7 @@ import os
 import sys
 
 sys.path.append("/home/cybermals.heliohost.us/httpdocs/simple-todo/simple_todo/")
+sys.path.append("/home/cybermals.heliohost.us/httpdocs/simple-todo/simple_todo/simple_todo/")
 
 from django.core.wsgi import get_wsgi_application
 
