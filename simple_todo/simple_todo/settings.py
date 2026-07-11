@@ -170,7 +170,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Authentication URLs
-LOGIN_REDIRECT_URL = "/"
+from django.urls import reverse_lazy
+
+LOGIN_REDIRECT_URL = reverse_lazy("todo-lists")
 
 # Allauth form classes
 ACCOUNT_FORMS = {
